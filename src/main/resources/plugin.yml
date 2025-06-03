@@ -1,0 +1,10 @@
+name: IndustrialRevivalBasic
+version: '${project.version}'
+main: org.irmc.industrialrevival.implementation.IndustrialRevivalBasic
+api-version: '1.21.4'
+authors: [ mmmjjkx, balugaq, the IndustrialRevival community ]
+website: "https://github.com/IndustrialRevival/IRImplementation"
+permissions:
+  industrialrevival.cmd.guide:
+    description: get the guide of IndustrialRevival
+    default: true
