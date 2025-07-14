@@ -33,7 +33,8 @@ import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.api.multiblock.MultiBlock;
 import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
-import org.irmc.industrialrevival.api.objects.CustomItemStack;
+import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.pigeonlib.items.CustomItemStack;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.core.listeners.MultiblockTicker;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
@@ -56,11 +57,11 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
     public static final TextColor MELTING_TEXT_COLOR = TextColor.color(16746003);
     public static final TextColor FUEL_TEXT_COLOR = TextColor.color(16734003);
     private static final TextComponent BLOCKS = Component.text("\u25a0\u25a0\u25a0\u25a0\u25a0");
-    private static final ItemStack STORAGE_ICON = new CustomItemStack(Material.BARREL, "&fBlast Smeltery Storage", "", "&f0 / 0");
-    private static final ItemStack FUEL_ICON = new CustomItemStack(Material.BUCKET, "&fBlast Smeltery Fuel", "", "&f0 / 0");
-    private static final ItemStack MODEL_ICON = new CustomItemStack(Material.GOLD_BLOCK, "&fTinker Model", "", "");
-    private static final ItemStack CRAFT_ICON = new CustomItemStack(Material.CRAFTING_TABLE, "&fTinker Crafting", "", "");
-    private static final ItemStack PRODUCT_ICON = new CustomItemStack(Material.GOLDEN_PICKAXE, "&fTinker Product", "", "");
+    private static final ItemStack STORAGE_ICON = new CustomItemStack(Material.BARREL, "&fBlast Smeltery Storage", "", "&f0 / 0").getBukkit();
+    private static final ItemStack FUEL_ICON = new CustomItemStack(Material.BUCKET, "&fBlast Smeltery Fuel", "", "&f0 / 0").getBukkit();
+    private static final ItemStack MODEL_ICON = new CustomItemStack(Material.GOLD_BLOCK, "&fTinker Model", "", "").getBukkit();
+    private static final ItemStack CRAFT_ICON = new CustomItemStack(Material.CRAFTING_TABLE, "&fTinker Crafting", "", "").getBukkit();
+    private static final ItemStack PRODUCT_ICON = new CustomItemStack(Material.GOLDEN_PICKAXE, "&fTinker Product", "", "").getBukkit();
     private static final NamespacedKey MELTING_KEY = KeyUtil.customKey("melting");
     @RegExp
     private static final String MELTING_PREFIX = "Melting - ";
@@ -92,7 +93,7 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
             .addExplain("i", new ItemStack(Material.AIR), Behaviors.ADD_ITEM_BEHAVIOR);
 
     public static RecipeType RECIPE_TYPE = new RecipeType(
-            IndustrialRevival.getInstance(),
+            IRDock.getPlugin(),
             KeyUtil.customKey("blast_smeltery"),
             new ItemStack(Material.BLAST_FURNACE)
     );
@@ -138,7 +139,7 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
     //</editor-fold>
 
     public static @NotNull ItemStack getMeltingStack(@NotNull ItemStack input) {
-        return new CustomItemStack(input, im -> {
+        return new CustomItemStack(input).editMeta(im -> {
             if (!PersistentDataAPI.has(im, MELTING_KEY, PersistentDataType.INTEGER)) {
                 im.displayName(Component.text(MELTING_PREFIX, MELTING_TEXT_COLOR).append(im.displayName()));
                 List<Component> lore = im.lore();
@@ -149,7 +150,7 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
                 im.lore(lore);
                 PersistentDataAPI.set(im, MELTING_KEY, PersistentDataType.INTEGER, 0);
             }
-        });
+        }).getBukkit();
     }
 
     public static boolean isMeltingStack(@NotNull ItemStack input) {
@@ -158,7 +159,7 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
 
     public static @NotNull ItemStack getOriginalStack(@NotNull ItemStack input) {
         if (isMeltingStack(input)) {
-            return new CustomItemStack(input, im -> {
+            return new CustomItemStack(input).editMeta(im -> {
                 Component displayName = im.displayName();
                 if (displayName != null) {
                     String plain = PlainTextComponentSerializer.plainText().serialize(displayName);
@@ -184,8 +185,9 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
                 if (PersistentDataAPI.has(im, MELTING_KEY, PersistentDataType.INTEGER)) {
                     PersistentDataAPI.remove(im, MELTING_KEY);
                 }
-            });
+            }).getBukkit();
         }
+
         return input;
     }
 
@@ -395,7 +397,7 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
                     return false;
                 }
 
-                TinkerProduct product = IndustrialRevival.getInstance().getRegistry().getTinkerItem(bottom.getType(), tinkerType);
+                TinkerProduct product = IRDock.getRegistry().getTinkerProduct(bottom.getType(), tinkerType);
                 if (product == null) {
                     player.sendMessage(Component.text(bottom.getType().getName() + " cannot be tinkered with " + tinkerType.name() + "."));
                     return false;

@@ -2,9 +2,9 @@ package org.irmc.industrialrevival.implementation.items.debug;
 
 import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
+import org.irmc.industrialrevival.api.machines.ItemFlow;
 import org.irmc.industrialrevival.api.menu.MachineMenuPreset;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
-import org.irmc.industrialrevival.api.objects.enums.ItemFlow;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

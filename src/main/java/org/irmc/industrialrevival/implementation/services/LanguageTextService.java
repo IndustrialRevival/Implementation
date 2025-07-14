@@ -1,4 +1,4 @@
-package org.irmc.industrialrevival.core.services.impl;
+package org.irmc.industrialrevival.implementation.services;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import org.irmc.pigeonlib.language.LanguageManager;

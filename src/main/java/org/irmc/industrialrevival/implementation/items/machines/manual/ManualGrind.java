@@ -4,11 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.api.machines.BasicMachine;
+import org.irmc.industrialrevival.api.machines.ItemFlow;
 import org.irmc.industrialrevival.api.machines.recipes.MachineRecipe;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
-import org.irmc.industrialrevival.api.objects.CustomItemStack;
-import org.irmc.industrialrevival.api.objects.enums.ItemFlow;
+import org.irmc.pigeonlib.items.CustomItemStack;
 import org.irmc.industrialrevival.utils.MenuUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +19,7 @@ public class ManualGrind extends BasicMachine {
     private static final ItemStack CLICKER_ICON = new CustomItemStack(
             Material.ORANGE_STAINED_GLASS_PANE,
             "§6Clicker",
-            "§7Click to start grinding");
+            "§7Click to start grinding").getBukkit();
     private static final int MENU_SIZE = 27;
     private static final MatrixMenuDrawer DRAWER = new MatrixMenuDrawer(MENU_SIZE)
             .addLine("IIIDDDOOO")

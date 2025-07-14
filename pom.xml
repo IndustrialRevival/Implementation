@@ -146,7 +146,7 @@
         <dependency>
             <groupId>com.github.IndustrialRevival</groupId>
             <artifactId>API</artifactId>
-            <version>3216d08662</version>
+            <version>56d776c8c1</version>
             <scope>provided</scope>
         </dependency>
 

@@ -1,4 +1,4 @@
-package org.irmc.industrialrevival.core.services.impl;
+package org.irmc.industrialrevival.implementation.services;
 
 import com.google.common.base.Strings;
 import io.github.lijinhong11.mdatabase.DatabaseConnection;
@@ -25,11 +25,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //todo: move to implementation
-public class IRDataManager implements ISQLDataManager {
+public class SQLDataManager implements ISQLDataManager {
     private final DatabaseConnection connection;
     private final Logger LOGGER = IRDock.getPlugin().getLogger();
 
-    public IRDataManager(IIndustrialRevivalPlugin plugin) {
+    public SQLDataManager(IIndustrialRevivalPlugin plugin) {
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("storage");
         if (section == null) {
             section = plugin.getConfig().createSection("storage");

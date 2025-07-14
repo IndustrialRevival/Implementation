@@ -10,7 +10,8 @@ import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
 import org.irmc.industrialrevival.api.multiblock.piece.AnyStructurePiece;
 import org.irmc.industrialrevival.api.multiblock.piece.MaterialStructurePiece;
-import org.irmc.industrialrevival.api.objects.CustomItemStack;
+import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.pigeonlib.items.CustomItemStack;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ import java.util.Map;
 @Getter
 public class ResearchTable extends MultiBlock {
     private
-    final ItemStack RECIPE_TYPE_ICON = new CustomItemStack(Material.BLAST_FURNACE, "Combustion Furnace", "A Combustion Furnace", "This block is a MultiBlock structure that can be used to create Combustion Recipes.", "For testing purposes only so far.");
+    final ItemStack RECIPE_TYPE_ICON = new CustomItemStack(Material.BLAST_FURNACE, "Combustion Furnace", "A Combustion Furnace", "This block is a MultiBlock structure that can be used to create Combustion Recipes.", "For testing purposes only so far.").getBukkit();
     private
     final Map<ItemStack[], ItemStack> RECIPES = new HashMap<>();
     private
@@ -69,6 +70,6 @@ public class ResearchTable extends MultiBlock {
     @Override
     public void onInteract(@NotNull PlayerInteractEvent event) {
         // todo
-        IndustrialRevival.getInstance().getLogger().info("WoodenPress interacted by " + event.getPlayer().getName());
+        IRDock.getPlugin().getLogger().info("WoodenPress interacted by " + event.getPlayer().getName());
     }
 }

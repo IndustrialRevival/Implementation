@@ -1,4 +1,4 @@
-package org.irmc.industrialrevival.core.services.impl;
+package org.irmc.industrialrevival.implementation.services;
 
 import lombok.Getter;
 import org.bukkit.NamespacedKey;
@@ -7,12 +7,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.irmc.industrialrevival.api.data.runtime.settings.ItemSetting;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.core.services.IItemSettings;
-import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.Constants;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
 
 /**

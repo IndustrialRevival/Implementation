@@ -1,4 +1,4 @@
-package org.irmc.industrialrevival.core.services.impl;
+package org.irmc.industrialrevival.implementation.services;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -16,10 +16,13 @@ import org.irmc.industrialrevival.api.items.collection.ItemDictionary;
 import org.irmc.industrialrevival.api.items.groups.ItemGroup;
 import org.irmc.industrialrevival.api.menu.MachineMenuPreset;
 import org.irmc.industrialrevival.api.multiblock.MultiBlock;
+import org.irmc.industrialrevival.api.physics.ContainerType;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.api.recipes.methods.BlockDropMethod;
 import org.irmc.industrialrevival.api.recipes.methods.MobDropMethod;
 import org.irmc.industrialrevival.api.recipes.methods.ProduceMethod;
+import org.irmc.industrialrevival.core.guide.GuideImplementation;
+import org.irmc.industrialrevival.core.guide.GuideMode;
 import org.irmc.industrialrevival.core.services.IIRRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,6 +53,9 @@ public final class IRRegistry implements IIRRegistry {
     private final Map<EntityType, List<MobDropMethod>> mobDrops = new ConcurrentHashMap<>();
     private final Map<Material, List<BlockDropMethod>> blockDrops = new ConcurrentHashMap<>();
     private final Map<String, ChemicalCompound> chemicals = new ConcurrentHashMap<>();
+    private final Map<String, GuideMode> guideModes = new ConcurrentHashMap<>();
+    private final Map<GuideMode, GuideImplementation> guideImplementations = new ConcurrentHashMap<>();
+    private final Map<NamespacedKey, ContainerType> containerTypes = new ConcurrentHashMap<>();
 
     @Override
     public @NotNull Map<NamespacedKey, ItemGroup> getItemGroups() {
@@ -379,6 +385,11 @@ public final class IRRegistry implements IIRRegistry {
     }
 
     @Override
+    public @Nullable TinkerProduct getTinkerProduct(@NotNull MeltedType meltedType, @NotNull TinkerType tinkerType) {
+        return getTinkerRecipes(meltedType).get(tinkerType);
+    }
+
+    @Override
     public @NotNull Map<Integer, ChemicalFormula> getChemicalFormulas() {
         return Collections.unmodifiableMap(chemicalFormulas);
     }
@@ -501,5 +512,36 @@ public final class IRRegistry implements IIRRegistry {
             registerProduceMethod(method);
         }
         return item;
+    }
+
+    @Override
+    public @Nullable GuideMode getGuideMode(@NotNull String s) {
+        return guideModes.get(s);
+    }
+
+    @Override
+    public @NotNull GuideImplementation getGuide(@NotNull GuideMode guideMode) {
+        return guideImplementations.get(guideMode);
+    }
+
+    @Override
+    public @NotNull ItemStack getGuideIcon(@NotNull GuideMode guideMode) {
+        return getGuide(guideMode).getGuideIcon();
+    }
+
+    @Override
+    public void registerGuide(@NotNull GuideMode guideMode, @NotNull GuideImplementation guideImplementation) {
+        guideModes.put(guideMode.getKey().getKey(), guideMode);
+        guideImplementations.put(guideMode, guideImplementation);
+    }
+
+    @Override
+    public @Nullable ContainerType getContainerType(@NotNull NamespacedKey namespacedKey) {
+        return containerTypes.get(namespacedKey);
+    }
+
+    @Override
+    public void registerContainerType(@NotNull ContainerType containerType) {
+        containerTypes.put(containerType.getKey(), containerType);
     }
 }

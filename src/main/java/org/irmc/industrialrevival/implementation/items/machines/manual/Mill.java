@@ -1,9 +1,9 @@
 package org.irmc.industrialrevival.implementation.items.machines.manual;
 
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.irmc.industrialrevival.api.events.vanilla.PlayerInteractIRBlockEvent;
 import org.irmc.industrialrevival.api.items.handlers.BlockInteractHandler;
 import org.irmc.industrialrevival.api.machines.AbstractMachine;
-import org.irmc.industrialrevival.api.objects.events.vanilla.PlayerInteractIRBlockEvent;
 
 public class Mill extends AbstractMachine {
     @Override

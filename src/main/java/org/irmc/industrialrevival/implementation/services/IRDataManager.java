@@ -1,4 +1,4 @@
-package org.irmc.industrialrevival.core.services.impl;
+package org.irmc.industrialrevival.implementation.services;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.bukkit.Location;
@@ -8,6 +8,7 @@ import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MachineMenuPreset;
 import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
 import org.irmc.industrialrevival.api.data.sql.BlockRecord;
+import org.irmc.industrialrevival.core.services.IIRDataManager;
 import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.Debug;
 
@@ -15,10 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BlockDataService {
+public class IRDataManager implements IIRDataManager {
     private final Map<Location, IRBlockData> blockDataMap;
 
-    public BlockDataService() {
+    public IRDataManager() {
         this.blockDataMap = new HashMap<>();
 
         loadData();
@@ -39,7 +40,7 @@ public class BlockDataService {
         return blockDataMap.get(location);
     }
 
-    public void handleBlockPlacing(Location loc, NamespacedKey machineId) {
+    public void placeBlock(Location loc, NamespacedKey machineId) {
         Debug.log("handleBlockPlacing");
         YamlConfiguration configuration = new YamlConfiguration();
         MachineMenuPreset preset = IRDock.getPlugin().getRegistry().getMenuPresets().get(machineId);
@@ -55,7 +56,7 @@ public class BlockDataService {
     }
 
     @CanIgnoreReturnValue
-    public IRBlockData handleBlockBreaking(Location loc) {
+    public IRBlockData breakBlock(Location loc) {
         return blockDataMap.remove(loc);
     }
 

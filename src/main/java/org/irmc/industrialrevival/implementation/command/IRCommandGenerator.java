@@ -20,9 +20,11 @@ import org.bukkit.plugin.Plugin;
 import org.irmc.industrialrevival.api.elements.compounds.ChemicalCompound;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.attributes.CompoundContainerHolder;
-import org.irmc.industrialrevival.api.objects.TimingViewRequest;
+import org.irmc.industrialrevival.api.timings.TimingViewRequest;
+import org.irmc.industrialrevival.core.guide.impl.CheatGuide;
+import org.irmc.industrialrevival.core.guide.impl.SurvivalGuide;
+import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
-import org.irmc.industrialrevival.implementation.guide.CheatGuideImplementation;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.GuideUtil;
@@ -60,8 +62,8 @@ public class IRCommandGenerator {
                 .withSubcommand(new CommandAPICommand("reload")
                         .withPermission(Constants.Permissions.COMMAND_RELOAD)
                         .executes(executionInfo -> {
-                            IndustrialRevival.getInstance().reloadConfig();
-                            IndustrialRevival.getInstance()
+                            IRDock.reloadConfig();
+                            IRDock
                                     .getLanguageManager()
                                     .sendMessage(executionInfo.sender(), "command.reload");
                         }))
@@ -75,14 +77,14 @@ public class IRCommandGenerator {
                         .withPermission(Constants.Permissions.COMMAND_CHEAT)
                         .executesPlayer(executionInfo -> {
                             Player player = executionInfo.sender();
-                            CheatGuideImplementation.INSTANCE.open(player);
+                            CheatGuide.instance().open(player);
                         }))
                 .withSubcommand(new CommandAPICommand("give")
                         .withPermission(Constants.Permissions.COMMAND_GIVE)
                         .withArguments(new PlayerArgument("target"))
                         .withArguments(new NamespacedKeyArgument("id")
                                 .replaceSuggestions(ArgumentSuggestions.stringsAsync(
-                                        _ -> CompletableFuture.supplyAsync(() -> IndustrialRevival.getInstance()
+                                        _ -> CompletableFuture.supplyAsync(() -> IRDock
                                                 .getRegistry()
                                                 .getItems()
                                                 .keySet()
@@ -95,20 +97,20 @@ public class IRCommandGenerator {
                             Integer amount = (Integer) args.get("amount");
 
                             int finalAmount = amount == null ? 1 : amount;
-                            IndustrialRevivalItem item = IndustrialRevival.getInstance()
+                            IndustrialRevivalItem item = IRDock
                                     .getRegistry()
                                     .getItems()
                                     .get(itemID);
 
                             if (target == null) {
-                                sender.sendMessage(IndustrialRevival.getInstance()
+                                sender.sendMessage(IRDock
                                         .getLanguageManager()
                                         .getMsgComponent(sender, "command.give.target_not_found"));
                                 return;
                             }
 
                             if (item == null) {
-                                sender.sendMessage(IndustrialRevival.getInstance()
+                                sender.sendMessage(IRDock
                                         .getLanguageManager()
                                         .getMsgComponent(sender, "command.give.item_not_found"));
                                 return;
@@ -116,7 +118,7 @@ public class IRCommandGenerator {
 
                             ItemStack itemStack = item.getIcon().clone();
                             itemStack.setAmount(finalAmount);
-                            IndustrialRevival.getInstance().getItemDataService().setId(itemStack, itemID);
+                            IRDock.getItemDataService().setId(itemStack, itemID);
                             target.getInventory().addItem(itemStack);
 
                             MessageReplacement itemName = MessageReplacement.replace(
@@ -126,7 +128,7 @@ public class IRCommandGenerator {
                             MessageReplacement itemAmount =
                                     MessageReplacement.replace("%amount%", String.valueOf(finalAmount));
 
-                            target.sendMessage(IndustrialRevival.getInstance()
+                            target.sendMessage(IRDock
                                     .getLanguageManager()
                                     .getMsgComponent(sender, "command.give.success", itemName, itemAmount));
                         }))
@@ -135,7 +137,7 @@ public class IRCommandGenerator {
                         .withArguments(new PlayerArgument("target"))
                         .withArguments(new NamespacedKeyArgument("id")
                                 .replaceSuggestions(ArgumentSuggestions.stringsAsync(
-                                        _ -> CompletableFuture.supplyAsync(() -> IndustrialRevival.getInstance()
+                                        _ -> CompletableFuture.supplyAsync(() -> IRDock
                                                 .getRegistry()
                                                 .getItems()
                                                 .keySet()
@@ -147,27 +149,27 @@ public class IRCommandGenerator {
                             NamespacedKey itemID = (NamespacedKey) args.get("id");
                             Integer amount = (Integer) args.getOrDefault("amount", 1);
 
-                            IndustrialRevivalItem item = IndustrialRevival.getInstance()
+                            IndustrialRevivalItem item = IRDock
                                     .getRegistry()
                                     .getItems()
                                     .get(itemID);
 
                             if (target == null) {
-                                sender.sendMessage(IndustrialRevival.getInstance()
+                                sender.sendMessage(IRDock
                                         .getLanguageManager()
                                         .getMsgComponent(sender, "command.give.target_not_found"));
                                 return;
                             }
 
                             if (item == null) {
-                                sender.sendMessage(IndustrialRevival.getInstance()
+                                sender.sendMessage(IRDock
                                         .getLanguageManager()
                                         .getMsgComponent(sender, "command.give.item_not_found"));
                                 return;
                             }
 
                             ItemStack itemStack = item.getIcon().clone();
-                            IndustrialRevival.getInstance().getItemDataService().setId(itemStack, itemID);
+                            IRDock.getItemDataService().setId(itemStack, itemID);
                             itemStack.setAmount(amount);
                             target.getInventory().addItem(itemStack);
                         }))
@@ -175,8 +177,8 @@ public class IRCommandGenerator {
                         .withPermission(Constants.Permissions.COMMAND_TIMINGS)
                         .executes((sender, args) -> {
                             TimingViewRequest request = new TimingViewRequest(sender, true);
-                            IndustrialRevival.getInstance().getProfilerService().requestTimingView(request);
-                            sender.sendMessage(IndustrialRevival.getInstance()
+                            IRDock.getRunningProfilerService().requestTimingView(request);
+                            sender.sendMessage(IRDock
                                     .getLanguageManager()
                                     .getMsgComponent(sender, "command.timings.waiting"));
                         }))
@@ -184,9 +186,9 @@ public class IRCommandGenerator {
                         .withPermission(Constants.Permissions.COMMAND_CHEMISTRY)
                         .withArguments(new StringArgument("object").replaceSuggestions(ArgumentSuggestions.stringsAsync(
                                 _ -> CompletableFuture.supplyAsync(() -> {
-                                        var lst = new ArrayList<>(IndustrialRevival.getInstance()
+                                        var lst = new ArrayList<>(IRDock
                                                 .getRegistry()
-                                                .getBindingCompounds().values().stream()
+                                                .getChemicalCompounds().values().stream()
                                                 .distinct()
                                                 .map(ChemicalCompound::getName)
                                                 .sorted()
@@ -200,7 +202,7 @@ public class IRCommandGenerator {
                             double mass = (double) args.getOrDefault("mass", 1D);
                             var b = player.getTargetBlockExact(8, FluidCollisionMode.NEVER);
                             if (b == null) {
-                                player.sendMessage(IndustrialRevival.getInstance()
+                                player.sendMessage(IRDock
                                         .getLanguageManager()
                                         .getMsgComponent(player, "command.chemistry.no_target_block"));
                                 return;
@@ -209,7 +211,7 @@ public class IRCommandGenerator {
                             var loc = b.getLocation();
                             var ir = DataUtil.getItem(loc);
                             if (!(ir instanceof CompoundContainerHolder holder)) {
-                                player.sendMessage(IndustrialRevival.getInstance()
+                                player.sendMessage(IRDock
                                         .getLanguageManager()
                                         .getMsgComponent(player, "command.chemistry.no_item_block"));
                                 return;
@@ -218,7 +220,7 @@ public class IRCommandGenerator {
                             String object = (String) args.get("object");
                             if ("ALL".equals(object)) {
                                 Map<ChemicalCompound, Double> masses = new HashMap<>();
-                                for (var compound : ChemicalCompound.ALL_CHEMICALS.values()) {
+                                for (var compound : IRDock.getRegistry().getChemicalCompounds().values()) {
                                     masses.put(compound, mass);
                                 }
 
@@ -226,7 +228,7 @@ public class IRCommandGenerator {
                             } else {
                                 var compound = ChemicalCompound.forName(object);
                                 if (compound == null) {
-                                    player.sendMessage(IndustrialRevival.getInstance()
+                                    player.sendMessage(IRDock
                                             .getLanguageManager()
                                             .getMsgComponent(player, "command.chemistry.compound_not_found"));
                                     return;
@@ -238,7 +240,7 @@ public class IRCommandGenerator {
                 .withSubcommand(new CommandAPICommand("test")
                         .withPermission(Constants.Permissions.COMMAND_INFO)
                         .executesPlayer((player, args) -> {
-                            GuideUtil.openMainMenu(player);
+                            SurvivalGuide.instance().open(player);
                         }));
 
         instance.register(plugin);
@@ -247,11 +249,11 @@ public class IRCommandGenerator {
     private static void sendHelpMessage(CommandSender sender) {
         List<CommandAPICommand> subcommands = instance.getSubcommands();
         Component msg =
-                IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(sender, "command.help.header");
+                IRDock.getLanguageManager().getMsgComponent(sender, "command.help.header");
         for (CommandAPICommand subcommand : subcommands) {
             String commandName = subcommand.getName();
             msg = msg.append(Component.newline());
-            msg = msg.append(IndustrialRevival.getInstance()
+            msg = msg.append(IRDock
                     .getLanguageManager()
                     .getMsgComponent(sender, "command.help." + commandName));
         }
@@ -260,13 +262,13 @@ public class IRCommandGenerator {
 
     private static void sendInfoMessage(CommandSender sender) {
         Component msg =
-                IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(sender, "command.info.header");
+                IRDock.getLanguageManager().getMsgComponent(sender, "command.info.header");
         msg = msg.append(Component.newline());
 
         MessageReplacement ver = MessageReplacement.replace(
-                "%version%", IndustrialRevival.getInstance().getVersion());
+                "%version%", IRDock.getVersion());
 
-        msg = msg.append(IndustrialRevival.getInstance()
+        msg = msg.append(IRDock
                 .getLanguageManager()
                 .getMsgComponent(sender, "command.info.version", ver));
 
@@ -274,16 +276,16 @@ public class IRCommandGenerator {
 
         MessageReplacement serverVer = MessageReplacement.replace("%server_version%", Bukkit.getVersion());
 
-        msg = msg.append(IndustrialRevival.getInstance()
+        msg = msg.append(IRDock
                 .getLanguageManager()
                 .getMsgComponent(sender, "command.info.server_version", serverVer));
 
-        for (Plugin addon : IndustrialRevival.getInstance().getAddons()) {
+        for (Plugin addon : IRDock.getAddons()) {
             MessageReplacement name = MessageReplacement.replace("%addon_name%", addon.getName());
             MessageReplacement version = MessageReplacement.replace(
                     "%addon_version%", addon.getPluginMeta().getVersion());
             msg = msg.append(Component.newline());
-            msg = msg.append(IndustrialRevival.getInstance()
+            msg = msg.append(IRDock
                     .getLanguageManager()
                     .getMsgComponent(sender, "command.info.addon_item", name, version));
         }
