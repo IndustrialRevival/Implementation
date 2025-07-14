@@ -1,89 +1,123 @@
 package org.irmc.industrialrevival.implementation;
 
-import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
-import com.tcoded.folialib.FoliaLib;
-import com.tcoded.folialib.impl.PlatformScheduler;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
-import io.papermc.paper.plugin.configuration.PluginMeta;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.irmc.industrialrevival.api.IndustrialRevivalAddon;
-import org.irmc.industrialrevival.api.objects.ItemSettings;
-import org.irmc.industrialrevival.core.command.IRCommandGenerator;
-import org.irmc.industrialrevival.core.data.IRDataManager;
 import org.irmc.industrialrevival.core.managers.ListenerManager;
-import org.irmc.industrialrevival.core.services.BlockDataService;
-import org.irmc.industrialrevival.core.services.IRRegistry;
-import org.irmc.industrialrevival.core.services.ItemDataService;
-import org.irmc.industrialrevival.core.services.ItemTextureService;
-import org.irmc.industrialrevival.core.services.LanguageTextService;
-import org.irmc.industrialrevival.core.services.ProfilerService;
+import org.irmc.industrialrevival.core.services.IGitHubService;
+import org.irmc.industrialrevival.core.services.IIRDataManager;
+import org.irmc.industrialrevival.core.services.IIRRegistry;
+import org.irmc.industrialrevival.core.services.IItemDataService;
+import org.irmc.industrialrevival.core.services.IItemSettings;
+import org.irmc.industrialrevival.core.services.IListenerManager;
+import org.irmc.industrialrevival.core.services.IMinecraftRecipeService;
+import org.irmc.industrialrevival.core.services.IRunningProfilerService;
+import org.irmc.industrialrevival.core.services.ISQLDataManager;
+import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.industrialrevival.implementation.services.GitHubService;
+import org.irmc.industrialrevival.implementation.services.IRDataManager;
+import org.irmc.industrialrevival.implementation.services.SQLDataManager;
+import org.irmc.industrialrevival.implementation.services.IRRegistry;
+import org.irmc.industrialrevival.implementation.services.ItemDataService;
+import org.irmc.industrialrevival.implementation.services.ItemSettings;
+import org.irmc.industrialrevival.implementation.services.LanguageTextService;
+import org.irmc.industrialrevival.implementation.services.RunningProfilerService;
 import org.irmc.industrialrevival.core.task.AnitEnderDragonTask;
 import org.irmc.industrialrevival.core.task.ArmorCheckTask;
 import org.irmc.industrialrevival.core.task.PostSetupTask;
 import org.irmc.industrialrevival.core.translation.ItemTranslator;
 import org.irmc.industrialrevival.core.world.populators.ElementOreGenerator;
+import org.irmc.industrialrevival.dock.IIndustrialRevivalPlugin;
+import org.irmc.industrialrevival.implementation.command.IRCommandGenerator;
 import org.irmc.industrialrevival.implementation.groups.IRItemGroups;
 import org.irmc.industrialrevival.implementation.items.IndustrialRevivalItemSetup;
+import org.irmc.industrialrevival.libraries.folialib.FoliaLib;
+import org.irmc.industrialrevival.libraries.folialib.impl.PlatformScheduler;
+import org.irmc.industrialrevival.libraries.folialib.wrapper.task.WrappedTask;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.WorldUtil;
 import org.irmc.pigeonlib.enums.Language;
 import org.irmc.pigeonlib.file.ConfigFileUtil;
 import org.irmc.pigeonlib.language.LanguageManager;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.function.Consumer;
 
-public final class IndustrialRevival extends JavaPlugin implements IndustrialRevivalAddon {
+public final class IndustrialRevival extends JavaPlugin implements IIndustrialRevivalPlugin {
+    private static IndustrialRevival instance;
 
-    private static @Getter IndustrialRevival instance;
-    private @Getter IRRegistry registry;
     private @Getter LanguageManager languageManager;
-    private @Getter ListenerManager listenerManager;
-    private @Getter IRDataManager dataManager;
-    private @Getter ItemTextureService itemTextureService;
     private @Getter LanguageTextService languageTextService;
-    private @Getter BlockDataService blockDataService;
-    private @Getter ItemDataService itemDataService;
-    private @Getter ProfilerService profilerService;
+
+    private @Getter IIRRegistry registry;
+    private @Getter ISQLDataManager sqlDataManager;
+    private @Getter IIRDataManager irDataManager;
+    private @Getter IItemDataService itemDataService;
+    private @Getter IRunningProfilerService runningProfilerService;
     private @Getter PlatformScheduler foliaLibImpl;
-    private @Getter ItemSettings itemSettings;
+    private @Getter IItemSettings itemSettings;
     private @Getter ElementOreGenerator elementOreGenerator;
+    private @Getter IGitHubService githubService;
     private @Getter ProtocolManager protocolManager;
+    private @Getter IListenerManager listenerManager;
+    private @Getter IMinecraftRecipeService minecraftRecipeService;
 
-    public static void runSync(@Nonnull Runnable runnable) {
-        getInstance().getFoliaLibImpl().runNextTick(_ -> runnable.run());
+    @Override
+    public void runSync(@NotNull Runnable runnable) {
+        IRDock.getFoliaLibImpl().getScheduler().runNextTick(_ -> runnable.run());
+    }
+    
+    @Override
+    public void runSync(@NotNull Consumer<WrappedTask> consumer) {
+        IRDock.getFoliaLibImpl().getScheduler().runNextTick(consumer);
     }
 
-    public static void runAsync(@Nonnull Runnable runnable) {
-        getInstance().getFoliaLibImpl().runAsync(_ -> runnable.run());
+    @Override
+    public @NotNull ISQLDataManager getSQLDataManager() {
+        return sqlDataManager;
     }
 
-    public static @Nonnull Set<Plugin> getAddons() {
+    @Override
+    public @NotNull IIRDataManager getDataManager() {
+        return irDataManager;
+    }
+
+    @Override
+    public @NotNull IGitHubService getGitHubService() {
+        return githubService;
+    }
+
+    @Override
+    public void runAsync(@NotNull Runnable runnable) {
+        IRDock.getFoliaLibImpl().getScheduler().runAsync(_ -> runnable.run());
+    }
+    
+    @Override
+    public void runAsync(@NotNull Consumer<WrappedTask> consumer) {
+        IRDock.getFoliaLibImpl().getScheduler().runAsync(consumer);
+    }
+
+    public @NotNull List<IndustrialRevivalAddon> getAddons() {
         String pluginName = instance.getName();
 
         return Arrays.stream(instance.getServer().getPluginManager().getPlugins())
-                .filter(plugin -> {
-                    PluginMeta description = plugin.getPluginMeta();
-                    return description.getPluginDependencies().contains(pluginName)
-                            || description.getPluginSoftDependencies().contains(pluginName);
-                })
-                .collect(Collectors.toSet());
+                .filter(plugin -> plugin instanceof IndustrialRevivalAddon)
+                .map(plugin -> (IndustrialRevivalAddon) plugin)
+                .toList();
+    }
+
+    @Override
+    public @NotNull IListenerManager getListenerManager() {
+        return listenerManager;
     }
 
     @Override
@@ -113,17 +147,13 @@ public final class IndustrialRevival extends JavaPlugin implements IndustrialRev
         setupDataManager();
 
         languageManager = new LanguageManager(this, Language.ZH_CN);
-        listenerManager = new ListenerManager();
         registry = new IRRegistry();
 
         getLogger().info("Setting up items...");
         setupIndustrialRevivalItems();
 
-        getLogger().info("Setting up services...");
-        setupServices();
-
         getLogger().info("Setting up listeners...");
-        listenerManager.setupAll();
+        listenerManager = new ListenerManager();
 
         getLogger().info("Setting up tasks...");
         setupTasks();
@@ -134,6 +164,9 @@ public final class IndustrialRevival extends JavaPlugin implements IndustrialRev
         if (overworld != null) {
             WorldUtil.addPopulatorTo(overworld, elementOreGenerator);
         }
+
+        getLogger().info("Setting up services...");
+        setupServices();
 
         getComponentLogger().info(LanguageManager.parseToComponent("<green>Industrial Revival has been enabled!"));
     }
@@ -154,11 +187,11 @@ public final class IndustrialRevival extends JavaPlugin implements IndustrialRev
     }
 
     private void setupServices() {
-        blockDataService = new BlockDataService();
-        itemTextureService = new ItemTextureService();
+        irDataManager = new IRDataManager();
         itemDataService = new ItemDataService();
-        profilerService = new ProfilerService();
+        runningProfilerService = new RunningProfilerService();
         languageTextService = new LanguageTextService();
+        githubService = new GitHubService();
     }
 
     private void setupDataManager() {
@@ -166,14 +199,14 @@ public final class IndustrialRevival extends JavaPlugin implements IndustrialRev
             Constants.Files.STORAGE_FOLDER.mkdirs();
         }
 
-        dataManager = new IRDataManager(this);
-        dataManager.init();
+        sqlDataManager = new SQLDataManager(this);
+        sqlDataManager.init();
     }
 
     private void setupTasks() {
         int checkInterval = getConfig().getInt("options.armor-check-interval", 1);
         foliaLibImpl.runTimerAsync(new ArmorCheckTask(checkInterval), checkInterval, checkInterval);
-        foliaLibImpl.runTimerAsync(IndustrialRevival.getInstance().getProfilerService().getTask(), checkInterval, checkInterval);
+        foliaLibImpl.runTimerAsync(IRDock.getRunningProfilerService().getTask(), checkInterval, checkInterval);
         int deEnderDragonCheckInterval = getConfig().getInt("options.anti-ender-dragon-check.interval", 20);
         int deEnderDragonCheckRadius = getConfig().getInt("options.anti-ender-dragon-check.radius", 20);
         foliaLibImpl.runTimerAsync(new AnitEnderDragonTask(deEnderDragonCheckRadius), deEnderDragonCheckInterval, deEnderDragonCheckInterval);
@@ -187,25 +220,21 @@ public final class IndustrialRevival extends JavaPlugin implements IndustrialRev
 
     @Override
     public void onDisable() {
-        try {
-            itemSettings.getItemCfg().save(new File(getDataFolder(), "items-settings.yml"));
-        } catch (IOException e) {
-            getLogger().log(Level.SEVERE, "Failed to save items-settings.yml", e);
+        itemSettings.saveSettings();
+
+        if (irDataManager != null) {
+            irDataManager.saveAllData();
         }
 
-        if (blockDataService != null) {
-            blockDataService.saveAllData();
-        }
-
-        if (dataManager != null) {
-            dataManager.close();
+        if (sqlDataManager != null) {
+            sqlDataManager.close();
         }
 
         getLogger().info("IndustrialRevival has been disabled!");
     }
 
     @Override
-    public @Nonnull JavaPlugin getPlugin() {
+    public @NotNull JavaPlugin getPlugin() {
         return this;
     }
 

@@ -8,15 +8,16 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.ItemStack;
+import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
+import org.irmc.industrialrevival.api.events.vanilla.IRBlockPlaceEvent;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.attributes.InventoryBlock;
 import org.irmc.industrialrevival.api.items.handlers.BlockPlaceHandler;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
 import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
-import org.irmc.industrialrevival.api.objects.CustomItemStack;
-import org.irmc.industrialrevival.api.objects.IRBlockData;
-import org.irmc.industrialrevival.api.objects.events.vanilla.IRBlockPlaceEvent;
+import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.pigeonlib.items.CustomItemStack;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.groups.IRItemGroups;
 import org.irmc.industrialrevival.utils.DataUtil;
@@ -24,13 +25,11 @@ import org.irmc.industrialrevival.utils.MenuUtil;
 import org.irmc.pigeonlib.items.HeadItem;
 
 public class ItemDisplayer extends IndustrialRevivalItem implements InventoryBlock {
-    private static final ItemStack heightPlus = new CustomItemStack(HeadItem.createByUrl("http://textures.minecraft.net/texture/60b55f74681c68283a1c1ce51f1c83b52e2971c91ee34efcb598df3990a7e7"),
-            Component.empty(), Component.empty());
+    private static final ItemStack heightPlus = new CustomItemStack(HeadItem.createByUrl("http://textures.minecraft.net/texture/60b55f74681c68283a1c1ce51f1c83b52e2971c91ee34efcb598df3990a7e7")).getBukkit();
 
-    private static final ItemStack heightMinus = new CustomItemStack(HeadItem.createByUrl("http://textures.minecraft.net/texture/c3e4b533e4ba2dff7c0fa90f67e8bef36428b6cb06c45262631b0b25db85b"),
-            Component.empty(), Component.empty());
+    private static final ItemStack heightMinus = new CustomItemStack(HeadItem.createByUrl("http://textures.minecraft.net/texture/c3e4b533e4ba2dff7c0fa90f67e8bef36428b6cb06c45262631b0b25db85b")).getBukkit();
 
-    private static final ItemStack info = new CustomItemStack(HeadItem.createByUrl("http://textures.minecraft.net/texture/fa2afa7bb063ac1ff3bbe08d2c558a7df2e2bacdf15dac2a64662dc40f8fdbad"), Component.empty(), Component.empty());
+    private static final ItemStack info = new CustomItemStack(HeadItem.createByUrl("http://textures.minecraft.net/texture/fa2afa7bb063ac1ff3bbe08d2c558a7df2e2bacdf15dac2a64662dc40f8fdbad")).getBukkit();
 
     private final int twoDisplaySpacing = getItemSetting().getInt("two_display_spacing", 2);
     private final int defaultDistanceFromMachine = getItemSetting().getInt("default_distance_from_machine", 2);
@@ -79,7 +78,7 @@ public class ItemDisplayer extends IndustrialRevivalItem implements InventoryBlo
         setEnchantable(false, true);
         setDisenchantable(false, true);
         setWikiText("Item-Displayer");
-        setAddon(IndustrialRevival.getInstance());
+        setAddon(IRDock.getPlugin());
     }
 
     private void minusHeight(Location loc) {

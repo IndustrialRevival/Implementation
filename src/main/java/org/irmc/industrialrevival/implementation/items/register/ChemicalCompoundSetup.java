@@ -2,12 +2,11 @@ package org.irmc.industrialrevival.implementation.items.register;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.irmc.industrialrevival.api.elements.compounds.ChemicalCompound;
 import org.irmc.industrialrevival.api.elements.registry.ChemicalCompounds;
 import org.irmc.industrialrevival.api.elements.registry.ChemicalFormulas;
-import org.irmc.industrialrevival.api.recipes.methods.ChemicalMethod;
-import org.irmc.industrialrevival.core.services.IRRegistry;
+import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
+import org.irmc.industrialrevival.implementation.items.chemistry.OperationTable;
 import org.irmc.industrialrevival.implementation.items.chemistry.Solution;
 import org.irmc.pigeonlib.items.CustomItemStack;
 
@@ -19,10 +18,10 @@ public class ChemicalCompoundSetup {
 
     public static void setup() {
         ChemicalCompounds.onLoad(() -> {
-            IndustrialRevival.getInstance().getFoliaLibImpl().runAsync(_ -> {
-                ChemicalCompound.ALL_CHEMICALS.values().forEach(chemicalCompound -> {
+            IRDock.getFoliaLibImpl().getScheduler().runAsync(_ -> {
+                IRDock.getRegistry().getChemicalCompounds().values().forEach(chemicalCompound -> {
                     var item = new Solution()
-                            .addon(IndustrialRevival.getInstance())
+                            .addon(IRDock.getPlugin())
                             .id("CHEMICAL_COMPOUND_" + chemicalCompound.asKey())
                             .icon(new CustomItemStack(
                                     Material.GLASS_BOTTLE,
@@ -30,17 +29,13 @@ public class ChemicalCompoundSetup {
                                             Component.translatable("chemistry.solution.bottle")))
                             ))
                             .cast(Solution.class);
-                    // todo: Rewrite this
-                    item.registerReactable();
                     item.register();
-                    item.bind(chemicalCompound);
-                    // todo: Rewrite this
                     solutions.put(chemicalCompound.getName(), item);
                 });
 
-                IRRegistry.getInstance().getChemicalFormulas().values().forEach(formula ->
+                IRDock.getRegistry().getChemicalFormulas().values().forEach(formula ->
                         formula.getOutput().keySet().forEach(compound ->
-                                solutions.get(compound.getName()).recipe(ChemicalMethod.of(formula))
+                                solutions.get(compound.getName()).recipe(OperationTable.OperationTableChemicalMethod.of(formula))
                         )
                 );
             });

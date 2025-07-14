@@ -13,17 +13,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
+import org.irmc.industrialrevival.api.events.vanilla.IRBlockPlaceEvent;
+import org.irmc.industrialrevival.api.events.vanilla.IRItemInteractEvent;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.handlers.BlockTicker;
 import org.irmc.industrialrevival.api.items.handlers.ItemInteractHandler;
 import org.irmc.industrialrevival.api.objects.ChunkPosition;
-import org.irmc.industrialrevival.api.objects.IRBlockData;
-import org.irmc.industrialrevival.api.objects.PerformanceSummary;
-import org.irmc.industrialrevival.api.objects.events.vanilla.IRBlockPlaceEvent;
-import org.irmc.industrialrevival.api.objects.events.vanilla.IRItemInteractEvent;
-import org.irmc.industrialrevival.core.services.IRRegistry;
+import org.irmc.industrialrevival.api.timings.PerformanceSummary;
+import org.irmc.industrialrevival.core.services.IIRRegistry;
+import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.IndustrialRevivalItems;
+import org.irmc.industrialrevival.implementation.services.IRRegistry;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.NumberUtil;
 
@@ -196,14 +198,14 @@ public class Debugger extends IndustrialRevivalItem {
             hasTicker = true;
         }
 
-        IRBlockData blockData = IndustrialRevival.getInstance().getProfilerService().getTask().getTickingBlocks().get(location);
+        IRBlockData blockData = IRDock.getRunningProfilerService().getTask().getTickingBlocks().get(location);
         ticking = blockData != null;
 
         send(player, "&e - Ticker: " + booleanToSymbol(hasTicker));
         send(player, "&e - Ticking: " + booleanToSymbol(ticking));
         if (hasTicker) {
             NamespacedKey id = data.getId();
-            PerformanceSummary summary = IndustrialRevival.getInstance().getProfilerService().getSummary();
+            PerformanceSummary summary = IRDock.getRunningProfilerService().getSummary();
             long timingsOfThisBlock = summary.getDataByLocation().getOrDefault(location, 0L);
             long totalTimingsOfThisBlock = summary.getDataByID().getOrDefault(id, 0L);
             send(player, "&e- Timings: ");
@@ -230,7 +232,7 @@ public class Debugger extends IndustrialRevivalItem {
         send(player, "&eChecking chunk timings: ");
         Chunk chunk = player.getChunk();
         ChunkPosition position = new ChunkPosition(chunk);
-        PerformanceSummary summary = IndustrialRevival.getInstance().getProfilerService().getSummary();
+        PerformanceSummary summary = IRDock.getRunningProfilerService().getSummary();
 
         Long chunkTimings = summary.getDataByChunk().get(position);
         if (chunkTimings == null) {
@@ -296,29 +298,26 @@ public class Debugger extends IndustrialRevivalItem {
         Player player = e.getPlayer();
         send(player, "&eChecking Industrial Revival status: ");
 
-        PluginMeta pluginMeta = IndustrialRevival.getInstance().getPlugin().getPluginMeta();
-        send(player, "&e - Enabled: &7" + booleanToSymbol(IndustrialRevival.getInstance().isEnabled()));
-        send(player, "&e - Name: &7" + IndustrialRevival.getInstance().getPlugin().getName());
+        PluginMeta pluginMeta = IRDock.getPlugin().getPluginMeta();
+        send(player, "&e - Enabled: &7" + booleanToSymbol(IRDock.isEnabled()));
+        send(player, "&e - Name: &7" + IRDock.getPlugin().getName());
         send(player, "&e - Version: &7" + pluginMeta.getVersion());
         send(player, "&e - Authors: &7" + pluginMeta.getAuthors());
         send(player, "&e - Description: &7" + pluginMeta.getDescription());
         send(player, "&e - Website: &7" + pluginMeta.getWebsite());
         send(player, "&e - API version: &7" + pluginMeta.getAPIVersion());
-        send(player, "&e - Issue tracker: &7" + IndustrialRevival.getInstance().getIssueTrackerURL());
-        send(player, "&e - Installed addons: &7" + IndustrialRevival.getInstance().getAddons().size());
+        send(player, "&e - Issue tracker: &7" + IRDock.getIssueTrackerURL());
+        send(player, "&e - Installed addons: &7" + IRDock.getAddons().size());
 
-        IRRegistry registry = IndustrialRevival.getInstance().getRegistry();
+        IIRRegistry registry = IRDock.getRegistry();
         send(player, "&e - Loaded items: &7" + registry.getItems().size());
         send(player, "&e - Loaded item groups: &7" + registry.getItemGroups().size());
-        send(player, "&e - Loaded recipe types: &7" + registry.getProduceable().size());
+        send(player, "&e - Loaded recipe types: &7" + registry.getAllRecipeTypes().size());
         send(player, "&e - Loaded menu presets: &7" + registry.getMenuPresets().size());
-        send(player, "&e - Loaded player profiles: &7" + registry.getPlayerProfiles().size());
-        send(player, "&e - Loaded display groups: &7" + registry.getDisplayGroups().size());
+        send(player, "&e - Loaded player profiles: &7" + IRDock.getDataManager().getPlayerProfiles().size());
         //send(player, "&e - Loaded researches: &7" + registry.getResearches().size());
         AtomicInteger recipes = new AtomicInteger();
-        registry.getProduceable().forEach((_, craftables) -> {
-            recipes.addAndGet(craftables.size());
-        });
+        registry.getAllProduceMethods().forEach(_ -> recipes.addAndGet(1));
         send(player, "&e - Loaded recipes: &7" + recipes.get());
         AtomicInteger mobDrops = new AtomicInteger();
         registry.getMobDrops().forEach((_, drops) -> {
@@ -330,7 +329,7 @@ public class Debugger extends IndustrialRevivalItem {
             blockDrops.addAndGet(drops.size());
         });
         send(player, "&e - Loaded block drops: &7" + blockDrops.get());
-        send(player, "&e - Loaded listeners: &7" + IndustrialRevival.getInstance().getListenerManager().getListenerCount());
+        send(player, "&e - Loaded listeners: &7" + IRDock.getListenerManager().getListeners().size());
     }
 
     private void placeDebugHead(PlayerInteractEvent e) {

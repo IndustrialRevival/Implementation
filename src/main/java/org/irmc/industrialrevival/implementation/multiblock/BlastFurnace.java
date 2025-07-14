@@ -19,7 +19,7 @@ import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
 import org.irmc.industrialrevival.api.multiblock.MultiBlock;
 import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
-import org.irmc.industrialrevival.api.objects.CustomItemStack;
+import org.irmc.pigeonlib.items.CustomItemStack;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.utils.Debug;
 import org.irmc.industrialrevival.utils.KeyUtil;
@@ -28,7 +28,6 @@ import org.irmc.pigeonlib.items.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +37,10 @@ public class BlastFurnace extends MultiBlock implements ProcessorHolder<MachineO
     // todo: save
     private static final Map<Location, MachineMenu> menus = new HashMap<>();
     private static final float FUEL_TICK_RATE = 0.05f;
-    private static final ItemStack ICON_NO_ENOUGH_FUEL = new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "No enough fuel");
+    private static final ItemStack ICON_NO_ENOUGH_FUEL = new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "No enough fuel").getBukkit();
     private static final Material PROGRESS_BAR_MATERIAL = Material.FLINT_AND_STEEL;
-    private static final ItemStack FUEL_BORDER = new CustomItemStack(Material.COAL_BLOCK, "Fuel Input", "A Fuel Input");
-    private static final ItemStack HALTED = new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "Halted");
+    private static final ItemStack FUEL_BORDER = new CustomItemStack(Material.COAL_BLOCK, "Fuel Input", "A Fuel Input").getBukkit();
+    private static final ItemStack HALTED = new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "Halted").getBukkit();
     private static final MachineRecipes recipes = new MachineRecipes();
     private static final MachineMenuPreset preset = new MachineMenuPreset(KeyUtil.customKey("blast_furnace"), "Blast Furnace");
     private static final MatrixMenuDrawer menuDrawer = new MatrixMenuDrawer(5 * 9)
@@ -62,7 +61,7 @@ public class BlastFurnace extends MultiBlock implements ProcessorHolder<MachineO
     private final MachineProcessor<MachineOperation> processor = new MachineProcessor<>();
     private final Map<Location, Float> fuels = new HashMap<>();
     private @Getter
-    final ItemStack RECIPE_TYPE_ICON = new CustomItemStack(Material.BLAST_FURNACE, "Combustion Furnace", "A Combustion Furnace", "This block is a MultiBlock structure that can be used to create Combustion Recipes.", "For testing purposes only so far.");
+    final ItemStack RECIPE_TYPE_ICON = new CustomItemStack(Material.BLAST_FURNACE, "Combustion Furnace", "A Combustion Furnace", "This block is a MultiBlock structure that can be used to create Combustion Recipes.", "For testing purposes only so far.").getBukkit();
     private @Getter
     final RecipeType RECIPE_TYPE = new RecipeType(getAddon(), getKey(), RECIPE_TYPE_ICON,
             (inputs, output) -> {
@@ -198,7 +197,7 @@ public class BlastFurnace extends MultiBlock implements ProcessorHolder<MachineO
         work(menu, location);
     }
 
-    private void work(@Nonnull MachineMenu menu, @Nonnull Location location) {
+    private void work(@NotNull MachineMenu menu, @NotNull Location location) {
         MachineOperation operation = processor.getProcess(location);
         if (operation != null) {
             if (operation.isDone()) {

@@ -7,11 +7,12 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.api.elements.compounds.ChemicalCompound;
 import org.irmc.industrialrevival.api.elements.compounds.ChemicalFormula;
+import org.irmc.industrialrevival.api.events.ir.BlockTickEvent;
+import org.irmc.industrialrevival.api.items.attributes.ChemicalCompoundContainer;
 import org.irmc.industrialrevival.api.items.attributes.CompoundContainerHolder;
 import org.irmc.industrialrevival.api.elements.reaction.ReactCondition;
 import org.irmc.industrialrevival.api.elements.reaction.ReactResult;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
-import org.irmc.industrialrevival.api.items.attributes.ChemReactable;
 import org.irmc.industrialrevival.api.items.attributes.EnvironmentHolder;
 import org.irmc.industrialrevival.api.items.handlers.BlockBreakHandler;
 import org.irmc.industrialrevival.api.machines.BasicMachine;
@@ -20,7 +21,6 @@ import org.irmc.industrialrevival.api.machines.process.ReactOperation;
 import org.irmc.industrialrevival.api.machines.recipes.MachineRecipe;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.SimpleMenu;
-import org.irmc.industrialrevival.api.objects.events.ir.BlockTickEvent;
 import org.irmc.industrialrevival.api.elements.reaction.Decomposer;
 import org.irmc.industrialrevival.implementation.items.register.ChemicalCompoundSetup;
 import org.irmc.industrialrevival.utils.ColorUtil;
@@ -30,7 +30,6 @@ import org.irmc.pigeonlib.items.CustomItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +68,7 @@ public abstract class Reactor extends BasicMachine implements CompoundContainerH
         return DEFAULT_THRESHOLD;
     }
 
-    @Nonnull
+    @NotNull
     public static List<Component> getStatusLore(@Nullable List<ReactOperation> operations) {
         if (operations == null) {
             return new ArrayList<>();
@@ -115,7 +114,7 @@ public abstract class Reactor extends BasicMachine implements CompoundContainerH
         for (int slot : inputSlots) {
             var item = menu.getItem(slot);
             if (item != null && item.getType() != Material.AIR) {
-                if (IndustrialRevivalItem.getByItem(item) instanceof ChemReactable reactable) {
+                if (IndustrialRevivalItem.getByItem(item) instanceof ChemicalCompoundContainer reactable) {
                     var compound = reactable.getChemicalCompound(item);
                     var mass = reactable.getMass(item);
                     if (mass > 0) {

@@ -11,6 +11,7 @@ import org.irmc.industrialrevival.api.items.attributes.NotPlaceable;
 import org.irmc.industrialrevival.api.items.attributes.Rechargeable;
 import org.irmc.industrialrevival.api.items.collection.ItemDictionary;
 import org.irmc.industrialrevival.api.items.groups.ItemGroup;
+import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.pigeonlib.language.MessageReplacement;
 import org.jetbrains.annotations.NotNull;
@@ -67,14 +68,14 @@ public class Battery extends IndustrialRevivalItem implements NotPlaceable, Rech
 
     @Override
     public void onRecharge(ItemStack item, double energy) {
-        double currentEnergy = getData(item);
+        double currentEnergy = getCurrentEnergy(item);
         double newEnergy = currentEnergy + energy;
 
         if (newEnergy > getEnergyCapacity()) {
             newEnergy = getEnergyCapacity();
         }
 
-        Component stored = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "energy.stored",
+        Component stored = IRDock.getLanguageManager().getMsgComponent(null, "energy.stored",
                 MessageReplacement.replace("%energy%", newEnergy + "mAh"),
                 MessageReplacement.replace("%capacity%", getEnergyCapacity() + "mAh"));
 
@@ -86,14 +87,14 @@ public class Battery extends IndustrialRevivalItem implements NotPlaceable, Rech
 
     @Override
     public void onEnergyTaken(ItemStack item, double energy) {
-        double currentEnergy = getData(item);
+        double currentEnergy = getCurrentEnergy(item);
         double newEnergy = currentEnergy - energy;
 
         if (newEnergy > getEnergyCapacity()) {
             newEnergy = getEnergyCapacity();
         }
 
-        Component stored = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "energy.stored",
+        Component stored = IRDock.getLanguageManager().getMsgComponent(null, "energy.stored",
                 MessageReplacement.replace("%energy%", newEnergy + "mAh"),
                 MessageReplacement.replace("%capacity%", getEnergyCapacity() + "mAh"));
 
