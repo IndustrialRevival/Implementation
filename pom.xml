@@ -95,6 +95,10 @@
 
     <repositories>
         <repository>
+            <id>jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
@@ -105,10 +109,6 @@
         <repository>
             <id>central</id>
             <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>jitpack</id>
-            <url>https://jitpack.io</url>
         </repository>
         <repository>
             <id>devmart-other</id>
@@ -145,8 +145,8 @@
 
         <dependency>
             <groupId>com.github.IndustrialRevival</groupId>
-            <artifactId>IndustrialRevival</artifactId>
-            <version>~SNAPSHOT</version>
+            <artifactId>API</artifactId>
+            <version>3216d08662</version>
             <scope>provided</scope>
         </dependency>
 

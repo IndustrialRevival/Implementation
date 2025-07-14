@@ -3,11 +3,6 @@ package org.irmc.industrialrevival.implementation;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
-import com.tcoded.folialib.FoliaLib;
-import com.tcoded.folialib.impl.PlatformScheduler;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import io.papermc.paper.plugin.configuration.PluginMeta;
@@ -18,72 +13,104 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.irmc.industrialrevival.api.IndustrialRevivalAddon;
-import org.irmc.industrialrevival.api.objects.ItemSettings;
-import org.irmc.industrialrevival.core.command.IRCommandGenerator;
-import org.irmc.industrialrevival.core.data.IRDataManager;
 import org.irmc.industrialrevival.core.managers.ListenerManager;
-import org.irmc.industrialrevival.core.services.BlockDataService;
-import org.irmc.industrialrevival.core.services.IRRegistry;
-import org.irmc.industrialrevival.core.services.ItemDataService;
-import org.irmc.industrialrevival.core.services.ItemTextureService;
-import org.irmc.industrialrevival.core.services.LanguageTextService;
-import org.irmc.industrialrevival.core.services.ProfilerService;
+import org.irmc.industrialrevival.core.services.IGitHubService;
+import org.irmc.industrialrevival.core.services.IIRDataManager;
+import org.irmc.industrialrevival.core.services.IIRRegistry;
+import org.irmc.industrialrevival.core.services.IItemDataService;
+import org.irmc.industrialrevival.core.services.IItemSettings;
+import org.irmc.industrialrevival.core.services.IMinecraftRecipeService;
+import org.irmc.industrialrevival.core.services.IRunningProfilerService;
+import org.irmc.industrialrevival.core.services.ISQLDataManager;
+import org.irmc.industrialrevival.core.services.impl.BlockDataService;
+import org.irmc.industrialrevival.core.services.impl.GitHubService;
+import org.irmc.industrialrevival.core.services.impl.IRDataManager;
+import org.irmc.industrialrevival.core.services.impl.IRRegistry;
+import org.irmc.industrialrevival.core.services.impl.ItemDataService;
+import org.irmc.industrialrevival.core.services.impl.ItemSettings;
+import org.irmc.industrialrevival.core.services.impl.LanguageTextService;
+import org.irmc.industrialrevival.core.services.impl.RunningProfilerService;
 import org.irmc.industrialrevival.core.task.AnitEnderDragonTask;
 import org.irmc.industrialrevival.core.task.ArmorCheckTask;
 import org.irmc.industrialrevival.core.task.PostSetupTask;
 import org.irmc.industrialrevival.core.translation.ItemTranslator;
 import org.irmc.industrialrevival.core.world.populators.ElementOreGenerator;
+import org.irmc.industrialrevival.dock.IIndustrialRevivalPlugin;
+import org.irmc.industrialrevival.implementation.command.IRCommandGenerator;
 import org.irmc.industrialrevival.implementation.groups.IRItemGroups;
 import org.irmc.industrialrevival.implementation.items.IndustrialRevivalItemSetup;
+import org.irmc.industrialrevival.libraries.folialib.FoliaLib;
+import org.irmc.industrialrevival.libraries.folialib.impl.PlatformScheduler;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.WorldUtil;
 import org.irmc.pigeonlib.enums.Language;
 import org.irmc.pigeonlib.file.ConfigFileUtil;
 import org.irmc.pigeonlib.language.LanguageManager;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public final class IndustrialRevival extends JavaPlugin implements IndustrialRevivalAddon {
+public final class IndustrialRevival extends JavaPlugin implements IIndustrialRevivalPlugin {
 
     private static @Getter IndustrialRevival instance;
-    private @Getter IRRegistry registry;
+
     private @Getter LanguageManager languageManager;
-    private @Getter ListenerManager listenerManager;
-    private @Getter IRDataManager dataManager;
-    private @Getter ItemTextureService itemTextureService;
     private @Getter LanguageTextService languageTextService;
-    private @Getter BlockDataService blockDataService;
-    private @Getter ItemDataService itemDataService;
-    private @Getter ProfilerService profilerService;
+
+    private @Getter IIRRegistry registry;
+    private @Getter ListenerManager listenerManager;
+    private @Getter ISQLDataManager dataManager;
+    private @Getter IIRDataManager blockDataService;
+    private @Getter IItemDataService itemDataService;
+    private @Getter IRunningProfilerService profilerService;
     private @Getter PlatformScheduler foliaLibImpl;
-    private @Getter ItemSettings itemSettings;
+    private @Getter IItemSettings itemSettings;
     private @Getter ElementOreGenerator elementOreGenerator;
+    private @Getter IGitHubService githubService;
     private @Getter ProtocolManager protocolManager;
 
-    public static void runSync(@Nonnull Runnable runnable) {
+    public void runSync(@Nonnull Runnable runnable) {
         getInstance().getFoliaLibImpl().runNextTick(_ -> runnable.run());
     }
 
-    public static void runAsync(@Nonnull Runnable runnable) {
+    @Override
+    public @NotNull ISQLDataManager getSQLDataManager() {
+        return dataManager;
+    }
+
+    @Override
+    public @NotNull IMinecraftRecipeService getMinecraftRecipeService() {
+        return ;
+    }
+
+    @Override
+    public @NotNull IRunningProfilerService getRunningProfilerService() {
+        return profilerService;
+    }
+
+    @Override
+    public @NotNull IGitHubService getGitHubService() {
+        return githubService;
+    }
+
+    public void runAsync(@Nonnull Runnable runnable) {
         getInstance().getFoliaLibImpl().runAsync(_ -> runnable.run());
     }
 
-    public static @Nonnull Set<Plugin> getAddons() {
+    public @Nonnull List<IndustrialRevivalAddon> getAddons() {
         String pluginName = instance.getName();
 
         return Arrays.stream(instance.getServer().getPluginManager().getPlugins())
-                .filter(plugin -> {
-                    PluginMeta description = plugin.getPluginMeta();
-                    return description.getPluginDependencies().contains(pluginName)
-                            || description.getPluginSoftDependencies().contains(pluginName);
-                })
-                .collect(Collectors.toSet());
+                .filter(plugin -> plugin instanceof IndustrialRevivalAddon)
+                .map(plugin -> (IndustrialRevivalAddon) plugin)
+                .toList();
     }
 
     @Override
@@ -154,11 +181,11 @@ public final class IndustrialRevival extends JavaPlugin implements IndustrialRev
     }
 
     private void setupServices() {
-        blockDataService = new BlockDataService();
-        itemTextureService = new ItemTextureService();
+        blockDataService = ;
         itemDataService = new ItemDataService();
-        profilerService = new ProfilerService();
+        profilerService = new RunningProfilerService();
         languageTextService = new LanguageTextService();
+        githubService = new GitHubService();
     }
 
     private void setupDataManager() {
@@ -187,11 +214,7 @@ public final class IndustrialRevival extends JavaPlugin implements IndustrialRev
 
     @Override
     public void onDisable() {
-        try {
-            itemSettings.getItemCfg().save(new File(getDataFolder(), "items-settings.yml"));
-        } catch (IOException e) {
-            getLogger().log(Level.SEVERE, "Failed to save items-settings.yml", e);
-        }
+        itemSettings.saveSettings();
 
         if (blockDataService != null) {
             blockDataService.saveAllData();
