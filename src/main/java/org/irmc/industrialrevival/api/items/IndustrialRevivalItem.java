@@ -37,9 +37,9 @@ import org.irmc.industrialrevival.api.recipes.methods.ProduceMethod;
 import org.irmc.industrialrevival.core.translation.TranslateContext;
 import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.Constants;
-import org.irmc.pigeonlib.items.ItemUtils;
-import org.irmc.pigeonlib.language.LanguageManager;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.utils.ItemUtils;
+import org.irmc.industrialrevival.api.language.LanguageManager;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -258,7 +258,7 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
      * @return this instance
      */
     @NotNull
-    public IndustrialRevivalItem icon(@NotNull org.irmc.pigeonlib.items.CustomItemStack icon) {
+    public IndustrialRevivalItem icon(@NotNull org.irmc.industrialrevival.implementation.items.CustomItemStack icon) {
         return icon(icon.getBukkit());
     }
 

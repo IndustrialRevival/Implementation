@@ -2,7 +2,7 @@ package org.irmc.industrialrevival.api;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.irmc.pigeonlib.enums.Language;
+import org.irmc.industrialrevival.api.enums.Language;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

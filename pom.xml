@@ -155,14 +155,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Main Lib -->
-        <dependency>
-            <groupId>com.github.IndustrialRevival</groupId>
-            <artifactId>PigeonLib</artifactId>
-            <version>0.0.11</version>
-            <scope>compile</scope>
-        </dependency>
-
         <!-- ProtocolLib -->
         <dependency>
             <groupId>com.comphenix.protocol</groupId>

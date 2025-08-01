@@ -10,7 +10,7 @@ import org.irmc.industrialrevival.api.pipe.servers.Puller;
 import org.irmc.industrialrevival.api.pipe.servers.Pusher;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.MenuUtil;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.utils.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

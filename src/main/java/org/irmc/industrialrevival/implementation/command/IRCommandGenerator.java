@@ -27,9 +27,8 @@ import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.DataUtil;
-import org.irmc.industrialrevival.utils.GuideUtil;
-import org.irmc.pigeonlib.items.ItemUtils;
-import org.irmc.pigeonlib.language.MessageReplacement;
+import org.irmc.industrialrevival.utils.ItemUtils;
+import org.irmc.industrialrevival.api.language.MessageReplacement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +61,7 @@ public class IRCommandGenerator {
                 .withSubcommand(new CommandAPICommand("reload")
                         .withPermission(Constants.Permissions.COMMAND_RELOAD)
                         .executes(executionInfo -> {
-                            IRDock.reloadConfig();
+                            IRDock.getPlugin().reloadConfig();
                             IRDock
                                     .getLanguageManager()
                                     .sendMessage(executionInfo.sender(), "command.reload");

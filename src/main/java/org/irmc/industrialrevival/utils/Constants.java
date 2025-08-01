@@ -9,8 +9,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.irmc.industrialrevival.core.guide.GuideMode;
 import org.irmc.industrialrevival.core.guide.GuideImplementation;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.pigeonlib.pdc.types.PersistentDataTypes;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
+import org.irmc.industrialrevival.api.pdc.types.PersistentDataTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

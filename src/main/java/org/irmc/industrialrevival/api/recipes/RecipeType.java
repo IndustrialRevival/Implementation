@@ -13,8 +13,8 @@ import org.irmc.industrialrevival.api.recipes.methods.ProduceMethod;
 import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.KeyUtil;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

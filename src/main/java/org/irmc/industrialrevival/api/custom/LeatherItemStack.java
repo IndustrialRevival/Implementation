@@ -6,7 +6,7 @@ package org.irmc.industrialrevival.api.custom;
 import org.bukkit.Color;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.irmc.pigeonlib.items.CustomItemStack;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 
 /**
  * The {@code LeatherItemStack} class extends the functionality of a custom item stack

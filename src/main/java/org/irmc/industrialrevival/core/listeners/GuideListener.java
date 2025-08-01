@@ -9,12 +9,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.core.guide.GuideImplementation;
 import org.irmc.industrialrevival.core.guide.GuideMode;
-import org.irmc.industrialrevival.core.guide.impl.CheatGuide;
-import org.irmc.industrialrevival.core.guide.impl.SurvivalGuide;
 import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.GuideUtil;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 
 public class GuideListener implements Listener {
     @EventHandler

@@ -9,9 +9,8 @@ import org.irmc.industrialrevival.api.multiblock.MultiBlock;
 import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.pigeonlib.items.CustomItemStack;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
-import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;

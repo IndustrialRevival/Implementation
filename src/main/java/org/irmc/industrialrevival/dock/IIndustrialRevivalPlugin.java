@@ -13,7 +13,7 @@ import org.irmc.industrialrevival.core.services.IListenerManager;
 import org.irmc.industrialrevival.core.services.IMinecraftRecipeService;
 import org.irmc.industrialrevival.core.services.IRunningProfilerService;
 import org.irmc.industrialrevival.core.services.ISQLDataManager;
-import org.irmc.pigeonlib.language.LanguageManager;
+import org.irmc.industrialrevival.api.language.LanguageManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

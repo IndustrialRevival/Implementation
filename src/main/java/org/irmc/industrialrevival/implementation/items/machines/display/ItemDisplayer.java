@@ -1,6 +1,5 @@
 package org.irmc.industrialrevival.implementation.items.machines.display;
 
-import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,12 +16,11 @@ import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
 import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.industrialrevival.implementation.IndustrialRevival;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.implementation.groups.IRItemGroups;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.MenuUtil;
-import org.irmc.pigeonlib.items.HeadItem;
+import org.irmc.industrialrevival.implementation.items.HeadItem;
 
 public class ItemDisplayer extends IndustrialRevivalItem implements InventoryBlock {
     private static final ItemStack heightPlus = new CustomItemStack(HeadItem.createByUrl("http://textures.minecraft.net/texture/60b55f74681c68283a1c1ce51f1c83b52e2971c91ee34efcb598df3990a7e7")).getBukkit();

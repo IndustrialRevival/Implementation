@@ -2,7 +2,6 @@ package org.irmc.industrialrevival.implementation.items;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.irmc.pigeonlib.items.CustomItemStack;
 
 @SuppressWarnings("unused")
 //TODO: split these items into different files

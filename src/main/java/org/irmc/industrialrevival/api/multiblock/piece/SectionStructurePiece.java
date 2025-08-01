@@ -5,8 +5,8 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
+import org.irmc.industrialrevival.utils.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.List;

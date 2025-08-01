@@ -11,7 +11,7 @@ import org.irmc.industrialrevival.api.player.PlayerProfile;
 import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.GuideUtil;
 import org.irmc.industrialrevival.utils.MenuUtil;
-import org.irmc.pigeonlib.chat.ChatInput;
+import org.irmc.industrialrevival.utils.chat.ChatInput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

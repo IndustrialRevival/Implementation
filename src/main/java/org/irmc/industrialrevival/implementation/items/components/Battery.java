@@ -12,8 +12,7 @@ import org.irmc.industrialrevival.api.items.attributes.Rechargeable;
 import org.irmc.industrialrevival.api.items.collection.ItemDictionary;
 import org.irmc.industrialrevival.api.items.groups.ItemGroup;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.industrialrevival.implementation.IndustrialRevival;
-import org.irmc.pigeonlib.language.MessageReplacement;
+import org.irmc.industrialrevival.api.language.MessageReplacement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

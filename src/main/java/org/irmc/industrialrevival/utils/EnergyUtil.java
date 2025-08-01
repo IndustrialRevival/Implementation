@@ -3,7 +3,7 @@ package org.irmc.industrialrevival.utils;
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.jetbrains.annotations.NotNull;
 
 /**

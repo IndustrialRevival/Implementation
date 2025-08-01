@@ -1,7 +1,7 @@
 package org.irmc.industrialrevival.implementation.services;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import org.irmc.pigeonlib.language.LanguageManager;
+import org.irmc.industrialrevival.api.language.LanguageManager;
 
 import java.util.List;
 import java.util.function.Consumer;

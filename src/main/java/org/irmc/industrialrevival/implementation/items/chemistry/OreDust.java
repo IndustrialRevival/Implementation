@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.irmc.industrialrevival.api.elements.ElementType;
 import org.irmc.industrialrevival.api.items.ElementItem;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 
 public class OreDust extends ElementItem  {
     public static final NamespacedKey ELEMENT_TYPE_KEY = NamespacedKey.minecraft("element_type");

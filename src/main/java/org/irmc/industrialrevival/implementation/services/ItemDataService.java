@@ -9,7 +9,7 @@ import org.irmc.industrialrevival.api.items.radiation.RadiationLevel;
 import org.irmc.industrialrevival.core.services.IItemDataService;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.DataUtil;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -9,7 +9,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.irmc.industrialrevival.api.menu.SimpleMenu;
 import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.core.guide.GuideMode;
-import org.irmc.pigeonlib.items.CustomItemStack;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;

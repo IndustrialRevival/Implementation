@@ -2,7 +2,7 @@ package org.irmc.industrialrevival.api.machines.recipes;
 
 import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.utils.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

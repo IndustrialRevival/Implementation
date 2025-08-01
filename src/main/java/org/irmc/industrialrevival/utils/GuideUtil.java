@@ -27,7 +27,7 @@ import org.irmc.industrialrevival.core.guide.GuideHistory;
 import org.irmc.industrialrevival.core.guide.GuideMode;
 import org.irmc.industrialrevival.core.guide.GuideImplementation;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.pigeonlib.items.CustomItemStack;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

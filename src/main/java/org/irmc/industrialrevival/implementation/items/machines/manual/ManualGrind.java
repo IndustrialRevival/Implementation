@@ -8,7 +8,7 @@ import org.irmc.industrialrevival.api.machines.ItemFlow;
 import org.irmc.industrialrevival.api.machines.recipes.MachineRecipe;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
-import org.irmc.pigeonlib.items.CustomItemStack;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.utils.MenuUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

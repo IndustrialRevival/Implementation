@@ -7,8 +7,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.irmc.industrialrevival.api.player.GuideSetting;
 import org.irmc.industrialrevival.utils.KeyUtil;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.pigeonlib.world.TextUtil;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
+import org.irmc.industrialrevival.utils.TextUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;

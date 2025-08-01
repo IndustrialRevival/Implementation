@@ -7,7 +7,7 @@ import org.irmc.industrialrevival.api.items.ElementItem;
 import org.irmc.industrialrevival.api.items.attributes.ChemicalCompoundContainer;
 import org.irmc.industrialrevival.api.items.attributes.GasStorage;
 import org.irmc.industrialrevival.utils.KeyUtil;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.jetbrains.annotations.NotNull;
 
 public class GasJar extends ElementItem implements GasStorage {

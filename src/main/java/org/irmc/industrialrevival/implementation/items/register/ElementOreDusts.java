@@ -9,7 +9,7 @@ import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.implementation.groups.IRItemGroups;
 import org.irmc.industrialrevival.implementation.items.chemistry.OreDust;
 import org.irmc.industrialrevival.utils.KeyUtil;
-import org.irmc.pigeonlib.items.CustomItemStack;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 
 @UtilityClass
 public class ElementOreDusts {

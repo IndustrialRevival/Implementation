@@ -25,8 +25,8 @@ import org.irmc.industrialrevival.api.elements.reaction.Decomposer;
 import org.irmc.industrialrevival.implementation.items.register.ChemicalCompoundSetup;
 import org.irmc.industrialrevival.utils.ColorUtil;
 import org.irmc.industrialrevival.utils.NumberUtil;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.utils.TextUtil;
-import org.irmc.pigeonlib.items.CustomItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

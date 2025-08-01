@@ -7,8 +7,8 @@ import org.irmc.industrialrevival.api.data.runtime.ContainerMetaData;
 import org.irmc.industrialrevival.api.data.runtime.GasContainerMetaData;
 import org.irmc.industrialrevival.api.physics.PhysicalState;
 import org.irmc.industrialrevival.utils.KeyUtil;
-import org.irmc.pigeonlib.objects.percentage.PositiveHundredPercentage;
-import org.irmc.pigeonlib.pdc.PersistentDataAPI;
+import org.irmc.industrialrevival.api.objects.percentage.PositiveHundredPercentage;
+import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.jetbrains.annotations.NotNull;
 
 /**

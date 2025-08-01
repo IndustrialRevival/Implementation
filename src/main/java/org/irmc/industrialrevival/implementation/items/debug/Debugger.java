@@ -299,7 +299,7 @@ public class Debugger extends IndustrialRevivalItem {
         send(player, "&eChecking Industrial Revival status: ");
 
         PluginMeta pluginMeta = IRDock.getPlugin().getPluginMeta();
-        send(player, "&e - Enabled: &7" + booleanToSymbol(IRDock.isEnabled()));
+        send(player, "&e - Enabled: &7" + booleanToSymbol(IRDock.getPlugin().isEnabled()));
         send(player, "&e - Name: &7" + IRDock.getPlugin().getName());
         send(player, "&e - Version: &7" + pluginMeta.getVersion());
         send(player, "&e - Authors: &7" + pluginMeta.getAuthors());

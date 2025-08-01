@@ -12,7 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.core.translation.TranslateContext;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.pigeonlib.language.LanguageManager;
+import org.irmc.industrialrevival.api.language.LanguageManager;
 import org.jetbrains.annotations.NotNull;
 
 //TODO: move to impl

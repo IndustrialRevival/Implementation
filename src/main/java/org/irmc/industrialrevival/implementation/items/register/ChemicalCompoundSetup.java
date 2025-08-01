@@ -5,10 +5,9 @@ import org.bukkit.Material;
 import org.irmc.industrialrevival.api.elements.registry.ChemicalCompounds;
 import org.irmc.industrialrevival.api.elements.registry.ChemicalFormulas;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.chemistry.OperationTable;
 import org.irmc.industrialrevival.implementation.items.chemistry.Solution;
-import org.irmc.pigeonlib.items.CustomItemStack;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 
 import java.util.HashMap;
 import java.util.Map;

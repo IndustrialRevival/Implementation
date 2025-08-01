@@ -8,7 +8,7 @@ import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.attributes.TankFuel;
 import org.irmc.industrialrevival.api.recipes.methods.MeltMethod;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.utils.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

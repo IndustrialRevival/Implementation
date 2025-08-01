@@ -5,7 +5,7 @@ import org.irmc.industrialrevival.api.elements.compounds.ChemicalCompound;
 import org.irmc.industrialrevival.api.physics.ContainerType;
 import org.irmc.industrialrevival.api.physics.PhysicalState;
 import org.irmc.industrialrevival.api.physics.SealStatus;
-import org.irmc.pigeonlib.objects.percentage.PositiveHundredPercentage;
+import org.irmc.industrialrevival.api.objects.percentage.PositiveHundredPercentage;
 
 @Getter
 public class GasContainerMetaData extends ContainerMetaData {

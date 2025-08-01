@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.api.items.collection.ItemDictionary;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.utils.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**

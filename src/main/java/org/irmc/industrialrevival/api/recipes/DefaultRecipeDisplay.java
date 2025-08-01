@@ -16,8 +16,8 @@ import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.CleanedItemGetter;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.GuideUtil;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
+import org.irmc.industrialrevival.utils.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -19,8 +19,8 @@ import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.GuideUtil;
 import org.irmc.industrialrevival.utils.KeyUtil;
 import org.irmc.industrialrevival.utils.MenuUtil;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
+import org.irmc.industrialrevival.utils.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

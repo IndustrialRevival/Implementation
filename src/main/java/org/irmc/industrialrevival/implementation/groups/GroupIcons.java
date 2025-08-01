@@ -3,8 +3,7 @@ package org.irmc.industrialrevival.implementation.groups;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.dock.IRDock;
-import org.irmc.pigeonlib.items.CustomItemStack;
-import org.irmc.industrialrevival.implementation.IndustrialRevival;
+import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 
 public class GroupIcons {
     public static final ItemStack GROUP_DEBUG = new CustomItemStack(

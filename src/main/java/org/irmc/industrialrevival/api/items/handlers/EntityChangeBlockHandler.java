@@ -4,7 +4,7 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.attributes.NotPlaceable;
 import org.irmc.industrialrevival.api.exceptions.IncompatibleItemHandlerException;
-import org.irmc.pigeonlib.items.ItemUtils;
+import org.irmc.industrialrevival.utils.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 
 public interface EntityChangeBlockHandler extends ItemHandler {
