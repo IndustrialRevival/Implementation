@@ -99,6 +99,14 @@
             <url>https://jitpack.io</url>
         </repository>
         <repository>
+            <id>codemc-releases</id>
+            <url>https://repo.codemc.io/repository/maven-releases/</url>
+        </repository>
+        <repository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+        </repository>
+        <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
@@ -117,6 +125,10 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>tcoded-releases</id>
+            <url>https://repo.tcoded.com/releases</url>
         </repository>
     </repositories>
 
@@ -143,18 +155,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.IndustrialRevival</groupId>
-            <artifactId>API</artifactId>
-            <version>56d776c8c1</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Main Lib -->
         <dependency>
             <groupId>com.github.IndustrialRevival</groupId>
             <artifactId>PigeonLib</artifactId>
-            <version>0.0.10</version>
+            <version>0.0.11</version>
             <scope>compile</scope>
         </dependency>
 
@@ -172,6 +177,30 @@
             <artifactId>commandapi-bukkit-shade</artifactId>
             <version>10.0.1</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!-- Database -->
+        <dependency>
+            <groupId>io.github.lijinhong11</groupId>
+            <artifactId>MDatabase</artifactId>
+            <version>1.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Folia compatibility -->
+        <dependency>
+            <groupId>com.tcoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- PacketEvents -->
+        <dependency>
+            <groupId>com.github.retrooper</groupId>
+            <artifactId>packetevents-spigot</artifactId>
+            <version>2.9.3</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
