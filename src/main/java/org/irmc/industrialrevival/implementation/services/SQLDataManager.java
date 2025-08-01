@@ -14,7 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.irmc.industrialrevival.api.data.sql.BlockRecord;
 import org.irmc.industrialrevival.api.data.sql.PlayerResearchRecord;
 import org.irmc.industrialrevival.core.services.ISQLDataManager;
-import org.irmc.industrialrevival.dock.IIndustrialRevivalPlugin;
+import org.irmc.industrialrevival.api.IIndustrialRevivalPlugin;
 
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Constants;

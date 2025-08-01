@@ -1,4 +1,4 @@
-package org.irmc.industrialrevival.dock;
+package org.irmc.industrialrevival.api;
 
 import com.comphenix.protocol.ProtocolManager;
 import com.tcoded.folialib.FoliaLib;
