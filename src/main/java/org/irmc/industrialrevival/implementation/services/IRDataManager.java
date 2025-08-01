@@ -1,26 +1,31 @@
 package org.irmc.industrialrevival.implementation.services;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MachineMenuPreset;
 import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
 import org.irmc.industrialrevival.api.data.sql.BlockRecord;
+import org.irmc.industrialrevival.api.player.PlayerProfile;
 import org.irmc.industrialrevival.core.services.IIRDataManager;
 import org.irmc.industrialrevival.dock.IRDock;
 import org.irmc.industrialrevival.utils.Debug;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IRDataManager implements IIRDataManager {
     private final Map<Location, IRBlockData> blockDataMap;
+    private final Map<String, PlayerProfile> playerProfileMap; // id -> profile
 
     public IRDataManager() {
         this.blockDataMap = new HashMap<>();
+        this.playerProfileMap = new HashMap<>();
 
         loadData();
     }
@@ -70,10 +75,56 @@ public class IRDataManager implements IIRDataManager {
         blockDataMap.clear();
     }
 
+    @Override
+    public void saveBlock(@NotNull Location location) {
+        IRBlockData data = blockDataMap.get(location);
+        if (data == null) return;
+        BlockRecord blockRecord = BlockRecord.warp(data);
+
+        IRDock.getPlugin().getSQLDataManager().saveBlockRecord(blockRecord);
+    }
+
     public Map<Location, IRBlockData> getBlockDataMap() {
         return new HashMap<>(blockDataMap);
     }
 
-    private void restoreMenuData(MachineMenu menu, MachineMenuPreset preset) {
+    @Override
+    public @NotNull Map<String, PlayerProfile> getPlayerProfiles() {
+        return new HashMap<>(playerProfileMap);
+    }
+
+    @Override
+    public @NotNull Collection<PlayerProfile> getAllPlayerProfiles() {
+        return playerProfileMap.values();
+    }
+
+    @Override
+    public @Nullable PlayerProfile getPlayerProfile(@NotNull String playerName) {
+        return playerProfileMap.get(playerName);
+    }
+
+    @Override
+    public @NotNull PlayerProfile getPlayerProfile(@NotNull Player player) {
+        return Objects.requireNonNull(getPlayerProfile(player.getName()));
+    }
+
+    @Override
+    public @NotNull PlayerProfile getPlayerProfile(@NotNull UUID playerUUID) {
+        return getPlayerProfile(Objects.requireNonNull(Bukkit.getPlayer(playerUUID)));
+    }
+
+    @Override
+    public void savePlayerProfile(@NotNull PlayerProfile profile) {
+        profile.save();
+    }
+
+    @Override
+    public void savePlayerProfile(@NotNull Player player) {
+        requestPlayerProfile(player).save();
+    }
+
+    @Override
+    public PlayerProfile requestPlayerProfile(@NotNull Player player) {
+        return PlayerProfile.getOrRequestProfile(player.getName());
     }
 }

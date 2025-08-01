@@ -12,6 +12,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.irmc.industrialrevival.api.data.sql.BlockRecord;
+import org.irmc.industrialrevival.api.data.sql.PlayerResearchRecord;
 import org.irmc.industrialrevival.core.services.ISQLDataManager;
 import org.irmc.industrialrevival.dock.IIndustrialRevivalPlugin;
 import org.irmc.industrialrevival.dock.IRDock;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -127,6 +129,31 @@ public class SQLDataManager implements ISQLDataManager {
                     Conditions.eq("z", loc.getBlockZ())));
         } catch (SQLException e) {
             throw new RuntimeException("Failed to delete block data", e);
+        }
+    }
+
+    public @NotNull List<PlayerResearchRecord> getPlayerResearchRecord(@NotNull UUID playerUUID) {
+        try {
+            return connection.selectMulti(PlayerResearchRecord.class,
+                    Conditions.eq("playerUUID", playerUUID));
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to delete research data", e);
+        }
+    }
+
+    public void deletePlayerResearchRecord(@NotNull UUID playerUUID) {
+        try {
+            connection.deleteObject(PlayerResearchRecord.class, Conditions.eq("playerUUID", playerUUID));
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to delete block data", e);
+        }
+    }
+
+    public void savePlayerResearchRecord(@NotNull PlayerResearchRecord playerResearchRecord) {
+        try {
+            connection.insertObject(PlayerResearchRecord.class, playerResearchRecord);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to save research data", e);
         }
     }
 

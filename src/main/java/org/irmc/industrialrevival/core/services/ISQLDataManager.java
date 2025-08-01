@@ -2,10 +2,12 @@ package org.irmc.industrialrevival.core.services;
 
 import org.bukkit.Location;
 import org.irmc.industrialrevival.api.data.sql.BlockRecord;
+import org.irmc.industrialrevival.api.data.sql.PlayerResearchRecord;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Interface for SQL data management operations.
@@ -42,6 +44,10 @@ public interface ISQLDataManager {
      * @param loc the location of the block record to delete
      */
     void deleteBlockRecord(@NotNull Location loc);
+
+    @NotNull List<PlayerResearchRecord> getPlayerResearchRecord(@NotNull UUID playerUUID);
+    void deletePlayerResearchRecord(@NotNull UUID playerUUID);
+    void savePlayerResearchRecord(@NotNull PlayerResearchRecord playerResearchRecord);
 
     void close();
 

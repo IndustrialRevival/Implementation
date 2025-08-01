@@ -8,16 +8,14 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.irmc.industrialrevival.api.data.sql.PlayerResearchRecord;
 import org.irmc.industrialrevival.core.guide.GuideHistory;
 import org.irmc.industrialrevival.core.guide.GuideSettings;
 import org.irmc.industrialrevival.dock.IRDock;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Contains information related to {@link Player} and Industrial Revival.
@@ -25,18 +23,16 @@ import java.util.UUID;
  * @author lijinhong11
  * @since 1.0
  */
+@Getter
 public class PlayerProfile {
-    @Getter
     private final String playerName;
 
-    @Getter
     private final UUID playerUUID;
 
-    @Getter
     private final GuideHistory guideHistory;
 
-    @Getter
     private final GuideSettings guideSettings;
+
     private final Map<NamespacedKey, Boolean> researchStatus;
 
     protected PlayerProfile(
@@ -79,19 +75,26 @@ public class PlayerProfile {
         //IRDock.getPlugin().getDataManager().getGuideSettings(name);
 
         Map<NamespacedKey, Boolean> researchStatus = new HashMap<>();
-        ConfigurationSection researchStatusYml = new YamlConfiguration();
         //IRDock.getPlugin().getDataManager().getResearchStatus(name);
 
-        researchStatusYml.getKeys(false).forEach(entry -> {
-            NamespacedKey key = NamespacedKey.fromString(entry);
-            boolean value = researchStatusYml.getBoolean(entry);
-            researchStatus.put(key, value);
-        });
+        List<PlayerResearchRecord> researchRecords = IRDock.getSQLDataManager().getPlayerResearchRecord(playerUUID);
+
+        for (PlayerResearchRecord researchRecord : researchRecords) {
+            researchStatus.put(NamespacedKey.fromString(researchRecord.getNamespacedKey()), true);
+        }
 
         PlayerProfile profile = new PlayerProfile(name, playerUUID, guideSettings, researchStatus);
         IRDock.getPlugin().getDataManager().getPlayerProfiles().put(name, profile);
 
         return profile;
+    }
+
+    public void save() {
+        IRDock.getSQLDataManager().deletePlayerResearchRecord(playerUUID);
+
+        for (PlayerResearchRecord playerResearchRecord : PlayerResearchRecord.wrapAll(this)) {
+            IRDock.getSQLDataManager().savePlayerResearchRecord(playerResearchRecord);
+        }
     }
 
     /*
