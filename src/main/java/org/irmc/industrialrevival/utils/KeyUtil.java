@@ -2,7 +2,8 @@ package org.irmc.industrialrevival.utils;
 
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,7 +23,7 @@ public class KeyUtil {
      * @return A {@link NamespacedKey} with the plugin's namespace and the provided key.
      */
     public static @NotNull NamespacedKey customKey(@NotNull String key) {
-        return new NamespacedKey(IRDock.getPlugin(), key.toLowerCase());
+        return new NamespacedKey(IndustrialRevival.getInstance(), key.toLowerCase());
     }
 
     /**

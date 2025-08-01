@@ -6,7 +6,8 @@ import org.irmc.industrialrevival.api.IndustrialRevivalAddon;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.handlers.BlockTicker;
 import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.DataUtil;
 
@@ -65,7 +66,7 @@ public class ErrorReport<T extends Throwable> {
         this.throwable = throwable;
         this.addon = addon;
 
-        IRDock.runSync(() -> print(printer));
+        IndustrialRevival.getInstance().runSync(() -> print(printer));
     }
 
     @ParametersAreNonnullByDefault
@@ -149,8 +150,8 @@ public class ErrorReport<T extends Throwable> {
         count.incrementAndGet();
 
         try (PrintStream stream = new PrintStream(file, StandardCharsets.UTF_8)) {
-            Stream<String> plugins = Arrays.stream(IRDock.getPlugin().getServer().getPluginManager().getPlugins()).map(plugin -> (plugin.isEnabled() ? " + " : " - ") + plugin.getName() + " v" + plugin.getDescription().getVersion());
-            Stream<String> addons = IRDock.getPlugin().getAddons().stream().map(plugin -> (plugin.isEnabled() ? " + " : " - ") + plugin.getName() + " v" + plugin.getDescription().getVersion());
+            Stream<String> plugins = Arrays.stream(IndustrialRevival.getInstance().getServer().getPluginManager().getPlugins()).map(plugin -> (plugin.isEnabled() ? " + " : " - ") + plugin.getName() + " v" + plugin.getDescription().getVersion());
+            Stream<String> addons = IndustrialRevival.getInstance().getAddons().stream().map(plugin -> (plugin.isEnabled() ? " + " : " - ") + plugin.getName() + " v" + plugin.getDescription().getVersion());
             List<String> pluginsList = plugins.toList();
             List<String> addonsList = addons.toList();
             int pluginsSize = pluginsList.size();
@@ -166,7 +167,7 @@ public class ErrorReport<T extends Throwable> {
                     "Paper or its fork",
                     Bukkit.getVersion(),
                     Bukkit.getBukkitVersion(),
-                    IRDock.getPlugin().getVersion(),
+                    IndustrialRevival.getInstance().getVersion(),
                     addon.getName(),
                     addon.getVersion(),
                     pluginsSize,
@@ -200,7 +201,7 @@ public class ErrorReport<T extends Throwable> {
                             Level.SEVERE,
                             x,
                             () -> "An Error occurred while saving an Error-Report for IndustrialRevival "
-                                    + IRDock.getPlugin().getVersion());
+                                    + IndustrialRevival.getInstance().getVersion());
         }
     }
 }

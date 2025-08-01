@@ -5,7 +5,8 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Debug;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
@@ -40,7 +41,7 @@ public class RecipeContents {
 
     @NotNull
     public static List<VanillaRecipeContent> getVanillaRecipeContents(@NotNull ItemStack itemStack) {
-        return IRDock.getPlugin().getMinecraftRecipeService().getRecipes(itemStack);
+        return IndustrialRevival.getInstance().getMinecraftRecipeService().getRecipes(itemStack);
     }
 
     @Unmodifiable

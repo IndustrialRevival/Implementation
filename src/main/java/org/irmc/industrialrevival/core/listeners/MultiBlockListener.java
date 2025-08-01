@@ -10,7 +10,8 @@ import org.irmc.industrialrevival.api.multiblock.MultiBlock;
 import org.irmc.industrialrevival.api.multiblock.Structure;
 import org.irmc.industrialrevival.api.multiblock.piece.MaterialStructurePiece;
 import org.irmc.industrialrevival.api.multiblock.piece.StructurePiece;
-import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
+
 
 import java.text.MessageFormat;
 import java.util.HashSet;
@@ -27,7 +28,7 @@ public class MultiBlockListener implements Listener {
         Set<MultiBlock> matched = new HashSet<>();
         Location location = block.getLocation();
         Material material = block.getType();
-        IRDock.getPlugin().getRegistry().getMultiBlocks().forEach((id, multiBlock) -> {
+        IndustrialRevival.getInstance().getRegistry().getMultiBlocks().forEach((id, multiBlock) -> {
             Structure structure = multiBlock.getStructure();
             StructurePiece piece = structure.getCenterPiece();
             if (piece instanceof MaterialStructurePiece msp) {
@@ -51,10 +52,10 @@ public class MultiBlockListener implements Listener {
 
         event.setCancelled(true);
         if (matched.size() > 1) {
-            IRDock.getPlugin().getLogger().warning(MessageFormat.format("Matched {0} multi-blocks, it may cause unexpected behavior", matched.size()));
-            IRDock.getPlugin().getLogger().warning("Conflicting multi-block: ");
+            IndustrialRevival.getInstance().getLogger().warning(MessageFormat.format("Matched {0} multi-blocks, it may cause unexpected behavior", matched.size()));
+            IndustrialRevival.getInstance().getLogger().warning("Conflicting multi-block: ");
             for (MultiBlock multiBlock : matched) {
-                IRDock.getPlugin().getLogger().warning(MessageFormat.format("From Addon: {0} - MultiBlock ID: {1}", multiBlock.getAddon().getPlugin().getName(), multiBlock.getId()));
+                IndustrialRevival.getInstance().getLogger().warning(MessageFormat.format("From Addon: {0} - MultiBlock ID: {1}", multiBlock.getAddon().getPlugin().getName(), multiBlock.getId()));
             }
         }
 

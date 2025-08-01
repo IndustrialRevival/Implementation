@@ -8,7 +8,8 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.irmc.industrialrevival.api.IndustrialRevivalAddon;
 import org.irmc.industrialrevival.api.elements.ElementType;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Debug;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +34,7 @@ public class ElementOreGenerator extends APopulator {
             block.setType(Material.YELLOW_TERRACOTTA);
         }
         Location location = block.getLocation();
-        IRDock.getPlugin().getDataManager().placeBlock(location, new NamespacedKey(IRDock.getPlugin(), elementType.name().toLowerCase()));
+        IndustrialRevival.getInstance().getDataManager().placeBlock(location, new NamespacedKey(IndustrialRevival.getInstance(), elementType.name().toLowerCase()));
         Debug.debug("Generated " + elementType.name() + " ore at " + location);
     }
 
@@ -49,6 +50,6 @@ public class ElementOreGenerator extends APopulator {
 
     @Override
     public @NotNull IndustrialRevivalAddon getAddon() {
-        return IRDock.getPlugin();
+        return IndustrialRevival.getInstance();
     }
 }

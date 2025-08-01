@@ -4,7 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.irmc.industrialrevival.core.services.IListenerManager;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class ListenerManager implements IListenerManager {
     @Override
     public void registerListener(@NotNull Listener listener) {
         listeners.add(listener);
-        Bukkit.getPluginManager().registerEvents(listener, IRDock.getDock());
+        Bukkit.getPluginManager().registerEvents(listener, IndustrialRevival.getInstance());
     }
 
     @Override

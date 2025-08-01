@@ -4,7 +4,8 @@ import com.tcoded.folialib.wrapper.task.WrappedTask;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.irmc.industrialrevival.api.events.ir.IndustrialRevivalFinalizedEvent;
-import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class PostSetupTask implements Consumer<WrappedTask> {
             try {
                 task.run();
             } catch (Exception e) {
-                IRDock.getPlugin().getLogger().warning("Failed to run post setup task: " + task);
+                IndustrialRevival.getInstance().getLogger().warning("Failed to run post setup task: " + task);
                 e.printStackTrace();
             }
         }

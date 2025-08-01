@@ -15,7 +15,8 @@ import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.attributes.ItemDroppable;
 import org.irmc.industrialrevival.api.recipes.methods.BlockDropMethod;
 import org.irmc.industrialrevival.api.recipes.methods.MobDropMethod;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.DataUtil;
 
 import java.security.SecureRandom;
@@ -28,7 +29,7 @@ public class DropListener implements Listener {
         Location location = entity.getLocation();
         World world = location.getWorld();
         List<MobDropMethod> drops =
-                IRDock.getPlugin().getRegistry().getMobDrops().get(entity.getType());
+                IndustrialRevival.getInstance().getRegistry().getMobDrops().get(entity.getType());
 
         if (drops != null) {
             SecureRandom random = new SecureRandom(entity.getUniqueId().toString().getBytes());
@@ -41,7 +42,7 @@ public class DropListener implements Listener {
                     if (irItem != null && irItem.isDisabledInWorld(entity.getWorld())) {
                         Player killer = entity.getKiller();
                         if (killer != null) {
-                            IRDock.getPlugin().getLanguageManager()
+                            IndustrialRevival.getInstance().getLanguageManager()
                                     .sendMessage(killer, "dropping_banned_item");
                         }
                         continue;
@@ -76,7 +77,7 @@ public class DropListener implements Listener {
             }
         }
 
-        List<BlockDropMethod> methods = IRDock.getPlugin().getRegistry().getBlockDrops().get(material);
+        List<BlockDropMethod> methods = IndustrialRevival.getInstance().getRegistry().getBlockDrops().get(material);
         if (methods == null) {
             return;
         }
@@ -89,7 +90,7 @@ public class DropListener implements Listener {
                 // banned item should not method
                 IndustrialRevivalItem irItem = IndustrialRevivalItem.getByItem(item);
                 if (irItem != null && irItem.isDisabledInWorld(world)) {
-                    IRDock.getPlugin().getLanguageManager()
+                    IndustrialRevival.getInstance().getLanguageManager()
                             .sendMessage(breaker, "dropping_banned_item");
                     continue;
                 }

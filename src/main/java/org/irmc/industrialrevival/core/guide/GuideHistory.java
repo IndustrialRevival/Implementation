@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.irmc.industrialrevival.api.menu.SimpleMenu;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.utils.GuideUtil;
 import org.jetbrains.annotations.NotNull;
 

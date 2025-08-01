@@ -33,7 +33,8 @@ import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.api.multiblock.MultiBlock;
 import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.core.listeners.MultiblockTicker;
@@ -92,7 +93,7 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
             .addExplain("i", new ItemStack(Material.AIR), Behaviors.ADD_ITEM_BEHAVIOR);
 
     public static RecipeType RECIPE_TYPE = new RecipeType(
-            IRDock.getPlugin(),
+            IndustrialRevival.getInstance(),
             KeyUtil.customKey("blast_smeltery"),
             new ItemStack(Material.BLAST_FURNACE)
     );
@@ -396,7 +397,7 @@ public class BlastSmeltery extends MultiBlock implements ExtraTickable {
                     return false;
                 }
 
-                TinkerProduct product = IRDock.getRegistry().getTinkerProduct(bottom.getType(), tinkerType);
+                TinkerProduct product = IndustrialRevival.getInstance().getRegistry().getTinkerProduct(bottom.getType(), tinkerType);
                 if (product == null) {
                     player.sendMessage(Component.text(bottom.getType().getName() + " cannot be tinkered with " + tinkerType.name() + "."));
                     return false;

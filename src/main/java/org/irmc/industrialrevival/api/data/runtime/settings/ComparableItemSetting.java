@@ -2,7 +2,8 @@ package org.irmc.industrialrevival.api.data.runtime.settings;
 
 import lombok.Getter;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,7 +18,7 @@ public abstract non-sealed class ComparableItemSetting<T extends Comparable<T>> 
         super(item, key, defaultValue);
         this.minValue = minValue;
         this.maxValue = maxValue;
-        this.currentValue = IRDock.getItemSettings().getItemSettings(item, this);
+        this.currentValue = IndustrialRevival.getInstance().getItemSettings().getItemSettings(item, this);
         if (this.currentValue.compareTo(minValue) < 0) {
             this.currentValue = minValue;
         }

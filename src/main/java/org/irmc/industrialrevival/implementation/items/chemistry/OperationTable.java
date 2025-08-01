@@ -7,7 +7,7 @@ import org.irmc.industrialrevival.api.machines.recipes.MachineRecipe;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.api.recipes.methods.ChemicalMethod;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.MenuUtil;
 
@@ -16,7 +16,7 @@ import java.util.Set;
 public class OperationTable extends Reactor {
     public OperationTable() {
         super();
-        setAddon(IRDock.getPlugin());
+        setAddon(IndustrialRevival.getInstance());
     }
 
     @Override
@@ -33,7 +33,7 @@ public class OperationTable extends Reactor {
 
     @Override
     public void loadRecipes() {
-        for (var formula : IRDock.getRegistry().getChemicalFormulas().values()) {
+        for (var formula : IndustrialRevival.getInstance().getRegistry().getChemicalFormulas().values()) {
             recipes.add(new MachineRecipe(0, 0, asRawItemLevel(formula.getInput()), asRawItemLevel(formula.getOutput())));
         }
     }

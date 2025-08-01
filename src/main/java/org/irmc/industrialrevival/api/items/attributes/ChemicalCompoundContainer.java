@@ -14,7 +14,8 @@ import org.irmc.industrialrevival.api.machines.process.Environment;
 import org.irmc.industrialrevival.api.physics.ContainerType;
 import org.irmc.industrialrevival.api.physics.PhysicalState;
 import org.irmc.industrialrevival.api.physics.SealStatus;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.KeyUtil;
 import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.irmc.industrialrevival.api.pdc.types.PersistentDataTypes;
@@ -72,7 +73,7 @@ public interface ChemicalCompoundContainer extends ItemAttribute, Keyed {
      * @return the chemical compound of the item.
      */
     default @Nullable ChemicalCompound getChemicalCompound(@NotNull ItemStack itemStack) {
-        return IRDock.getRegistry().getChemicalCompound(PersistentDataAPI.get(itemStack.getItemMeta(), CHEMICAL_COMPOUND_KEY, PersistentDataType.STRING));
+        return IndustrialRevival.getInstance().getRegistry().getChemicalCompound(PersistentDataAPI.get(itemStack.getItemMeta(), CHEMICAL_COMPOUND_KEY, PersistentDataType.STRING));
     }
 
     default void setChemicalCompound(@NotNull ItemStack itemStack, ChemicalCompound data) {
@@ -148,7 +149,7 @@ public interface ChemicalCompoundContainer extends ItemAttribute, Keyed {
     NamespacedKey CONTAINER_TYPE_KEY = KeyUtil.customKey("container_type");
 
     default ContainerType getContainerType(@NotNull ItemStack itemStack) {
-        return IRDock.getRegistry().getContainerType(PersistentDataAPI.get(itemStack.getItemMeta(), CONTAINER_TYPE_KEY, PersistentDataTypes.NAMESPACED_KEY));
+        return IndustrialRevival.getInstance().getRegistry().getContainerType(PersistentDataAPI.get(itemStack.getItemMeta(), CONTAINER_TYPE_KEY, PersistentDataTypes.NAMESPACED_KEY));
     }
 
     default  void setContainerType(@NotNull ItemStack itemStack, ContainerType containerType) {

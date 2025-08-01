@@ -12,7 +12,7 @@ import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MachineMenuPreset;
 import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
-import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +51,7 @@ public class DataUtil {
      */
     @Nullable
     public static IRBlockData getBlockData(@NotNull Location location) {
-        return IRDock.getPlugin().getDataManager().getBlockData(location);
+        return IndustrialRevival.getInstance().getDataManager().getBlockData(location);
     }
 
     /**
@@ -95,7 +95,7 @@ public class DataUtil {
      * @param blockData The IRBlockData to associate with the block.
      */
     public static void setBlockData(Location location, IRBlockData blockData) {
-        IRDock.getPlugin().getDataManager().getBlockDataMap().put(location, blockData);
+        IndustrialRevival.getInstance().getDataManager().getBlockDataMap().put(location, blockData);
     }
 
     /**
@@ -117,8 +117,8 @@ public class DataUtil {
     @CanIgnoreReturnValue
     @Nullable
     public static IRBlockData removeBlockData(@NotNull Location location) {
-        IRDock.getPlugin().getSQLDataManager().deleteBlockRecord(location);
-        return IRDock.getPlugin().getDataManager().breakBlock(location);
+        IndustrialRevival.getInstance().getSQLDataManager().deleteBlockRecord(location);
+        return IndustrialRevival.getInstance().getDataManager().breakBlock(location);
     }
 
     /**
@@ -181,7 +181,7 @@ public class DataUtil {
      */
     @Nullable
     public static MachineMenuPreset getMachineMenuPresetById(NamespacedKey id) {
-        return IRDock.getPlugin().getRegistry().getMenuPresets().get(id);
+        return IndustrialRevival.getInstance().getRegistry().getMenuPresets().get(id);
     }
 
     /**

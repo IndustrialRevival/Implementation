@@ -3,7 +3,7 @@ package org.irmc.industrialrevival.implementation.items;
 import org.bukkit.NamespacedKey;
 import org.irmc.industrialrevival.api.items.collection.ItemDictionary;
 import org.irmc.industrialrevival.api.items.collection.UnchangeableItemDictionary;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.KeyUtil;
 
@@ -22,6 +22,6 @@ public class Dictionaries {
     }
 
     public static ItemDictionary getDictionary(NamespacedKey key) {
-        return IRDock.getRegistry().getDictionaries().get(key);
+        return IndustrialRevival.getInstance().getRegistry().getDictionaries().get(key);
     }
 }

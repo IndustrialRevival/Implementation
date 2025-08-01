@@ -2,7 +2,8 @@ package org.irmc.industrialrevival.api.items.radiation;
 
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
-import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
+
 
 /**
  * @author lijinhong11
@@ -25,6 +26,6 @@ public enum RadiationLevel {
     }
 
     public Component getTranslation() {
-        return IRDock.getPlugin().getLanguageManager().getMsgComponent(null, translationKey);
+        return IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, translationKey);
     }
 }

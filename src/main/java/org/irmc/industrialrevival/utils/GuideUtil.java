@@ -26,7 +26,8 @@ import org.irmc.industrialrevival.api.player.PlayerProfile;
 import org.irmc.industrialrevival.core.guide.GuideHistory;
 import org.irmc.industrialrevival.core.guide.GuideMode;
 import org.irmc.industrialrevival.core.guide.GuideImplementation;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -108,7 +109,7 @@ public class GuideUtil {
     public static boolean openWiki(@NotNull Player player, @NotNull ItemStack itemStack) {
         String url = Constants.Misc.WIKI_URL + DataUtil.getPDC(itemStack.getItemMeta(), WIKI_KEY, PersistentDataType.STRING);
         ClickEvent clickEvent = ClickEvent.openUrl(url);
-        Component text = IRDock.getPlugin().getLanguageManager().getMsgComponent(player, "misc.wiki_page");
+        Component text = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(player, "misc.wiki_page");
         text = text.clickEvent(clickEvent);
 
         Component finalText = text;
@@ -270,7 +271,7 @@ public class GuideUtil {
     }
 
     public static @NotNull ItemStack getGuideIcon(@NotNull GuideMode mode) {
-        return IRDock.getRegistry().getGuideIcon(mode);
+        return IndustrialRevival.getInstance().getRegistry().getGuideIcon(mode);
     }
 
     private static final @NotNull Map<UUID, GuideMode> guideModes = new ConcurrentHashMap<>();
@@ -281,9 +282,9 @@ public class GuideUtil {
 
     public static @NotNull GuideImplementation getCurrentGuide(@Nullable Player player) {
         if (player == null) {
-            return IRDock.getRegistry().getGuide(GuideMode.SURVIVAL);
+            return IndustrialRevival.getInstance().getRegistry().getGuide(GuideMode.SURVIVAL);
         }
 
-        return IRDock.getRegistry().getGuide(guideModes.get(player.getUniqueId()));
+        return IndustrialRevival.getInstance().getRegistry().getGuide(guideModes.get(player.getUniqueId()));
     }
 }

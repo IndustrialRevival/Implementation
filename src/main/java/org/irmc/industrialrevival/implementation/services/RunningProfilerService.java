@@ -14,7 +14,8 @@ import org.irmc.industrialrevival.api.timings.PerformanceSummary;
 import org.irmc.industrialrevival.api.timings.TimingViewRequest;
 import org.irmc.industrialrevival.core.services.IRunningProfilerService;
 import org.irmc.industrialrevival.core.task.TickerTask;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.NumberUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,7 +38,7 @@ public class RunningProfilerService implements IRunningProfilerService {
     public final Map<ProfiledBlock, Long> profilingData = new ConcurrentHashMap<>();
     public final Map<Location, Long> startTimes = new ConcurrentHashMap<>();
     @Getter
-    private final TickerTask task = new TickerTask(IRDock.getPlugin().getConfig().getInt("options.armor-check-interval", 20));
+    private final TickerTask task = new TickerTask(IndustrialRevival.getInstance().getConfig().getInt("options.armor-check-interval", 20));
     @Getter
     public PerformanceSummary summary = new PerformanceSummary(getProfilingData(), new HashMap<>(), new HashMap<>(), new HashMap<>(), 0);
 

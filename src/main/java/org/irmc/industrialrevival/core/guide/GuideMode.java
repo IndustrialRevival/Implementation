@@ -4,7 +4,8 @@ import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.irmc.industrialrevival.core.guide.impl.CheatGuide;
 import org.irmc.industrialrevival.core.guide.impl.SurvivalGuide;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.KeyUtil;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +20,7 @@ public interface GuideMode extends Keyed {
 
     @Nullable
     static GuideMode valueOf(@NotNull String modeName) {
-        return IRDock.getRegistry().getGuideMode(modeName);
+        return IndustrialRevival.getInstance().getRegistry().getGuideMode(modeName);
     }
 
     @ApiStatus.Internal
@@ -32,7 +33,7 @@ public interface GuideMode extends Keyed {
         }
 
         static {
-            IRDock.getRegistry().registerGuide(instance, SurvivalGuide.instance());
+            IndustrialRevival.getInstance().getRegistry().registerGuide(instance, SurvivalGuide.instance());
         }
 
         @Override
@@ -51,7 +52,7 @@ public interface GuideMode extends Keyed {
         }
 
         static {
-            IRDock.getRegistry().registerGuide(instance, CheatGuide.instance());
+            IndustrialRevival.getInstance().getRegistry().registerGuide(instance, CheatGuide.instance());
         }
 
         @Override

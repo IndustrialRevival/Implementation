@@ -4,7 +4,8 @@ import org.bukkit.Location;
 import org.irmc.industrialrevival.api.elements.reaction.ReactCondition;
 import org.irmc.industrialrevival.api.machines.recipes.MachineRecipe;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.MenuUtil;
 
 import java.util.HashSet;
@@ -24,7 +25,7 @@ public class ElectrolyticMachine extends Reactor {
     }
     @Override
     public void loadRecipes() {
-        IRDock.getRegistry().getChemicalFormulas().values().forEach(formula -> {
+        IndustrialRevival.getInstance().getRegistry().getChemicalFormulas().values().forEach(formula -> {
             if (formula.getConditions().contains(ReactCondition.ELECTROLYSIS)) {
                 recipes.add(new MachineRecipe(0, 0, asRawItemLevel(formula.getInput()), asRawItemLevel(formula.getOutput())));
             }

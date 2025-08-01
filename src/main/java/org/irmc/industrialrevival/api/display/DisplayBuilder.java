@@ -5,8 +5,9 @@ import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Display;
 import org.bukkit.util.Vector;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.api.objects.Pair;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -415,7 +416,7 @@ public class DisplayBuilder {
      * @return a DisplayGroup with all the displays positioned relative to the center
      */
     public @NotNull DisplayGroup build() {
-        var group = new DisplayGroup(IRDock.getPlugin());
+        var group = new DisplayGroup(IndustrialRevival.getInstance());
         for (var display : displays) {
             group.addDirectly(display.getFirst());
         }

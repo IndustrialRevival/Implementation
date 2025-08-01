@@ -9,7 +9,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.core.guide.GuideImplementation;
 import org.irmc.industrialrevival.core.guide.GuideMode;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.GuideUtil;
 import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
@@ -31,7 +32,7 @@ public class GuideListener implements Listener {
                 }
 
                 Player player = e.getPlayer();
-                GuideImplementation guide = IRDock.getRegistry().getGuide(mode);
+                GuideImplementation guide = IndustrialRevival.getInstance().getRegistry().getGuide(mode);
                 GuideUtil.openMainMenu(player, guide);
             }
         }

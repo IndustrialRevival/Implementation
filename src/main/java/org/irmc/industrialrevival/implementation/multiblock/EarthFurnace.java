@@ -8,7 +8,8 @@ import org.bukkit.inventory.ItemStack;
 import org.irmc.industrialrevival.api.multiblock.MultiBlock;
 import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.jetbrains.annotations.NotNull;
@@ -55,7 +56,7 @@ public class EarthFurnace extends MultiBlock {
 
     @Override
     public void onInteract(@NotNull PlayerInteractEvent event) {
-        // todo
-        IRDock.getPlugin().getLogger().info("EarthFurnace interacted by " + event.getPlayer().getName());
+        // TODO
+        IndustrialRevival.getInstance().getLogger().info("EarthFurnace interacted by " + event.getPlayer().getName());
     }
 }

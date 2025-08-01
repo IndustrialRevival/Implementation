@@ -12,7 +12,8 @@ import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
 import org.irmc.industrialrevival.api.data.sql.BlockRecord;
 import org.irmc.industrialrevival.api.player.PlayerProfile;
 import org.irmc.industrialrevival.core.services.IIRDataManager;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Debug;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +33,7 @@ public class IRDataManager implements IIRDataManager {
 
     private void loadData() {
         List<BlockRecord> records =
-                IRDock.getPlugin().getSQLDataManager().getAllBlockRecords();
+                IndustrialRevival.getInstance().getSQLDataManager().getAllBlockRecords();
         Debug.log("List<BlockRecord> records: " + records.size());
         for (BlockRecord record : records) {
             Location loc = record.getLocation();
@@ -48,7 +49,7 @@ public class IRDataManager implements IIRDataManager {
     public void placeBlock(Location loc, NamespacedKey machineId) {
         Debug.log("handleBlockPlacing");
         YamlConfiguration configuration = new YamlConfiguration();
-        MachineMenuPreset preset = IRDock.getPlugin().getRegistry().getMenuPresets().get(machineId);
+        MachineMenuPreset preset = IndustrialRevival.getInstance().getRegistry().getMenuPresets().get(machineId);
 
         MachineMenu menu = null;
         if (preset != null) {
@@ -70,7 +71,7 @@ public class IRDataManager implements IIRDataManager {
         for (IRBlockData data : blockDataMap.values()) {
             BlockRecord blockRecord = BlockRecord.warp(data);
 
-            IRDock.getPlugin().getSQLDataManager().saveBlockRecord(blockRecord);
+            IndustrialRevival.getInstance().getSQLDataManager().saveBlockRecord(blockRecord);
         }
         blockDataMap.clear();
     }
@@ -81,7 +82,7 @@ public class IRDataManager implements IIRDataManager {
         if (data == null) return;
         BlockRecord blockRecord = BlockRecord.warp(data);
 
-        IRDock.getPlugin().getSQLDataManager().saveBlockRecord(blockRecord);
+        IndustrialRevival.getInstance().getSQLDataManager().saveBlockRecord(blockRecord);
     }
 
     public Map<Location, IRBlockData> getBlockDataMap() {

@@ -1,6 +1,6 @@
 name: IndustrialRevivalBasic
 version: '${project.version}'
-main: org.irmc.industrialrevival.implementation.IndustrialRevivalBasic
+main: org.irmc.industrialrevival.implementation.IndustrialRevival
 api-version: '1.21.4'
 authors: [ mmmjjkx, balugaq, the IndustrialRevival community ]
 website: "https://github.com/IndustrialRevival/IRImplementation"

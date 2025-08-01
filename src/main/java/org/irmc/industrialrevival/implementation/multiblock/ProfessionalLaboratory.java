@@ -9,7 +9,8 @@ import org.irmc.industrialrevival.api.multiblock.MultiBlock;
 import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -89,7 +90,7 @@ public class ProfessionalLaboratory extends MultiBlock {
 
     @Override
     public void onInteract(@NotNull PlayerInteractEvent event) {
-        // todo
-        IRDock.getPlugin().getLogger().info("WoodenPress interacted by " + event.getPlayer().getName());
+        // TODO
+        IndustrialRevival.getInstance().getLogger().info("WoodenPress interacted by " + event.getPlayer().getName());
     }
 }

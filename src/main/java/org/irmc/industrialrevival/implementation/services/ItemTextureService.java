@@ -11,7 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.data.runtime.IRBlockData;
-import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
+
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class ItemTextureService {
         customModelDataMap = new HashMap<>();
         blockModelMap = new HashMap<>();
 
-        setup(IRDock.getPlugin()
+        setup(IndustrialRevival.getInstance()
                 .getDataManager()
                 .getBlockDataMap()
                 .values());

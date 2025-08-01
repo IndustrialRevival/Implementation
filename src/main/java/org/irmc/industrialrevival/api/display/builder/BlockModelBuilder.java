@@ -18,7 +18,8 @@ import org.bukkit.metadata.LazyMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Debug;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -176,7 +177,7 @@ public class BlockModelBuilder extends AbstractModelBuilder implements Cloneable
      */
     public @NotNull BlockDisplay buildAt(@NotNull Location location) {
         try {
-            return Bukkit.getScheduler().callSyncMethod(IRDock.getPlugin(), () ->
+            return Bukkit.getScheduler().callSyncMethod(IndustrialRevival.getInstance(), () ->
                     location.getWorld().spawn(location, BlockDisplay.class, display -> {
                         ifPresent(this.blockData, () -> display.setBlock(this.blockData));
                         ifPresent(this.interpolationDuration, () -> display.setInterpolationDuration(this.interpolationDuration));

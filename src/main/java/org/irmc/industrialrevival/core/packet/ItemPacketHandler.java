@@ -11,8 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.core.translation.TranslateContext;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.api.language.LanguageManager;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 //TODO: move to impl
@@ -70,7 +71,7 @@ public class ItemPacketHandler implements PacketListener {
             return clone;
         }
 
-        LanguageManager lm = IRDock.getLanguageManager();
+        LanguageManager lm = IndustrialRevival.getInstance().getLanguageManager();
         TranslateContext tc = ir.getTranslateContext();
         if (tc != null) {
             meta.displayName(tc.apply(p, item, lm.getItemName(ir.getId())));

@@ -3,7 +3,8 @@ package org.irmc.industrialrevival.utils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.irmc.industrialrevival.dock.IIndustrialRevivalPlugin;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,9 +19,9 @@ import java.util.logging.Level;
  */
 @SuppressWarnings({"unused", "deprecation"})
 public class Debug {
-    private static final IIndustrialRevivalPlugin PLUGIN = IRDock.getPlugin();
+    private static final IIndustrialRevivalPlugin PLUGIN = IndustrialRevival.getInstance();
     private static final String DEBUG_PREFIX = "[Debug] ";
-    private static final boolean DEBUGGING = IRDock.getPlugin().getConfig().getBoolean("debug", false);
+    private static final boolean DEBUGGING = IndustrialRevival.getInstance().getConfig().getBoolean("debug", false);
 
     /**
      * Logs debug information for multiple objects.

@@ -7,7 +7,8 @@ import org.irmc.industrialrevival.api.elements.melt.MeltedTank;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.items.attributes.TankFuel;
 import org.irmc.industrialrevival.api.recipes.methods.MeltMethod;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,12 +38,12 @@ public class Smeltery implements Cloneable {
 
     public Smeltery() {
         this.tank = new MeltedTank();
-        this.recipes = IRDock.getPlugin().getRegistry().getAllProduceMethod(MeltMethod.class).stream().toList();
+        this.recipes = IndustrialRevival.getInstance().getRegistry().getAllProduceMethod(MeltMethod.class).stream().toList();
     }
 
     public Smeltery(MeltedTank tank) {
         this.tank = tank;
-        this.recipes = IRDock.getPlugin().getRegistry().getAllProduceMethod(MeltMethod.class).stream().toList();
+        this.recipes = IndustrialRevival.getInstance().getRegistry().getAllProduceMethod(MeltMethod.class).stream().toList();
     }
 
     public Smeltery(MeltedTank tank, List<MeltMethod> recipes) {

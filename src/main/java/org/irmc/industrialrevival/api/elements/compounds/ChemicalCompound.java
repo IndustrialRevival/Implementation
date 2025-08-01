@@ -7,7 +7,8 @@ import org.irmc.industrialrevival.api.elements.ElementType;
 import org.irmc.industrialrevival.api.elements.compounds.types.IonCompound;
 import org.irmc.industrialrevival.api.elements.compounds.types.OxideCompound;
 import org.irmc.industrialrevival.api.elements.registry.ChemicalCompounds;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +57,7 @@ public class ChemicalCompound {
         this.name = name;
         this.compounds = compounds;
         if (register) {
-            IRDock.getRegistry().getChemicalCompounds().put(name, this);
+            IndustrialRevival.getInstance().getRegistry().getChemicalCompounds().put(name, this);
         }
     }
 
@@ -73,7 +74,7 @@ public class ChemicalCompound {
             return null;
         }
 
-        return IRDock.getRegistry().getChemicalCompounds().get(name);
+        return IndustrialRevival.getInstance().getRegistry().getChemicalCompounds().get(name);
     }
 
     /**

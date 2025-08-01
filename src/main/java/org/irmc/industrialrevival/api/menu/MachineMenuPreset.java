@@ -10,7 +10,8 @@ import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.api.menu.handlers.MenuCloseHandler;
 import org.irmc.industrialrevival.api.menu.handlers.MenuOpenHandler;
 import org.irmc.industrialrevival.api.machines.ItemFlow;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
@@ -59,13 +60,13 @@ public class MachineMenuPreset extends SimpleMenu {
     }
 
     public void register() {
-        if (IRDock.getPlugin().getRegistry().getMenuPresets().containsKey(this.id)) {
+        if (IndustrialRevival.getInstance().getRegistry().getMenuPresets().containsKey(this.id)) {
             throw new IllegalStateException("Already registered menu preset with id " + this.id);
         }
 
         this.locked = true;
 
-        IRDock.getPlugin().getRegistry().getMenuPresets().put(this.id, this);
+        IndustrialRevival.getInstance().getRegistry().getMenuPresets().put(this.id, this);
     }
 
     public void setItem(@Range(from = 0, to = 53) int slot, @Nullable ItemStack itemStack) {

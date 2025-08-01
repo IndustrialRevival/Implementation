@@ -11,7 +11,8 @@ import org.bukkit.entity.Player;
 import org.irmc.industrialrevival.api.data.sql.PlayerResearchRecord;
 import org.irmc.industrialrevival.core.guide.GuideHistory;
 import org.irmc.industrialrevival.core.guide.GuideSettings;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,14 +55,14 @@ public class PlayerProfile {
 
     @Nullable
     public static PlayerProfile getProfile(String playerName) {
-        return IRDock.getPlugin().getDataManager().getPlayerProfiles().get(playerName);
+        return IndustrialRevival.getInstance().getDataManager().getPlayerProfiles().get(playerName);
     }
 
     @NotNull
     @CanIgnoreReturnValue
     public static PlayerProfile getOrRequestProfile(String name) {
-        if (IRDock.getPlugin().getDataManager().getPlayerProfiles().containsKey(name)) {
-            return IRDock.getPlugin()
+        if (IndustrialRevival.getInstance().getDataManager().getPlayerProfiles().containsKey(name)) {
+            return IndustrialRevival.getInstance()
                     .getDataManager()
                     .getPlayerProfiles()
                     .get(name);
@@ -72,28 +73,28 @@ public class PlayerProfile {
         UUID playerUUID = player.getUniqueId();
 
         GuideSettings guideSettings = GuideSettings.DEFAULT_SETTINGS;
-        //IRDock.getPlugin().getDataManager().getGuideSettings(name);
+        //IndustrialRevival.getInstance().getDataManager().getGuideSettings(name);
 
         Map<NamespacedKey, Boolean> researchStatus = new HashMap<>();
-        //IRDock.getPlugin().getDataManager().getResearchStatus(name);
+        //IndustrialRevival.getInstance().getDataManager().getResearchStatus(name);
 
-        List<PlayerResearchRecord> researchRecords = IRDock.getSQLDataManager().getPlayerResearchRecord(playerUUID);
+        List<PlayerResearchRecord> researchRecords = IndustrialRevival.getInstance().getSQLDataManager().getPlayerResearchRecord(playerUUID);
 
         for (PlayerResearchRecord researchRecord : researchRecords) {
             researchStatus.put(NamespacedKey.fromString(researchRecord.getNamespacedKey()), true);
         }
 
         PlayerProfile profile = new PlayerProfile(name, playerUUID, guideSettings, researchStatus);
-        IRDock.getPlugin().getDataManager().getPlayerProfiles().put(name, profile);
+        IndustrialRevival.getInstance().getDataManager().getPlayerProfiles().put(name, profile);
 
         return profile;
     }
 
     public void save() {
-        IRDock.getSQLDataManager().deletePlayerResearchRecord(playerUUID);
+        IndustrialRevival.getInstance().getSQLDataManager().deletePlayerResearchRecord(playerUUID);
 
         for (PlayerResearchRecord playerResearchRecord : PlayerResearchRecord.wrapAll(this)) {
-            IRDock.getSQLDataManager().savePlayerResearchRecord(playerResearchRecord);
+            IndustrialRevival.getInstance().getSQLDataManager().savePlayerResearchRecord(playerResearchRecord);
         }
     }
 
@@ -109,14 +110,14 @@ public class PlayerProfile {
         }
 
         if (player.getExpToLevel() < research.getRequiredExpLevel()) {
-            IRDock.getPlugin().getLanguageManager().sendMessage(player, "research.not_enough_exp");
+            IndustrialRevival.getInstance().getLanguageManager().sendMessage(player, "research.not_enough_exp");
             return;
         }
 
         player.giveExpLevels(-research.getRequiredExpLevel());
         researchStatus.put(key, true);
 
-        IRDock.getPlugin()
+        IndustrialRevival.getInstance()
                 .getLanguageManager()
                 .sendMessage(player, "research.success", new MessageReplacement("%name%", research.getName()));
     }

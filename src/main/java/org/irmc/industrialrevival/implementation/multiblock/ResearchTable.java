@@ -10,7 +10,8 @@ import org.irmc.industrialrevival.api.multiblock.StructureBuilder;
 import org.irmc.industrialrevival.api.multiblock.StructureUtil;
 import org.irmc.industrialrevival.api.multiblock.piece.AnyStructurePiece;
 import org.irmc.industrialrevival.api.multiblock.piece.MaterialStructurePiece;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.jetbrains.annotations.NotNull;
@@ -69,6 +70,6 @@ public class ResearchTable extends MultiBlock {
     @Override
     public void onInteract(@NotNull PlayerInteractEvent event) {
         // todo
-        IRDock.getPlugin().getLogger().info("WoodenPress interacted by " + event.getPlayer().getName());
+        IndustrialRevival.getInstance().getLogger().info("WoodenPress interacted by " + event.getPlayer().getName());
     }
 }

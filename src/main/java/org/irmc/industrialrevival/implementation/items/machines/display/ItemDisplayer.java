@@ -15,7 +15,8 @@ import org.irmc.industrialrevival.api.items.handlers.BlockPlaceHandler;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
 import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.items.CustomItemStack;
 import org.irmc.industrialrevival.implementation.groups.IRItemGroups;
 import org.irmc.industrialrevival.utils.DataUtil;
@@ -76,7 +77,7 @@ public class ItemDisplayer extends IndustrialRevivalItem implements InventoryBlo
         setEnchantable(false, true);
         setDisenchantable(false, true);
         setWikiText("Item-Displayer");
-        setAddon(IRDock.getPlugin());
+        setAddon(IndustrialRevival.getInstance());
     }
 
     private void minusHeight(Location loc) {

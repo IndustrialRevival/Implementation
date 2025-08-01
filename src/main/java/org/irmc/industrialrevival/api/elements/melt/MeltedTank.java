@@ -10,7 +10,8 @@ import org.irmc.industrialrevival.api.display.Colorful;
 import org.irmc.industrialrevival.api.display.DisplayGroup;
 import org.irmc.industrialrevival.api.display.ModelHandler;
 import org.irmc.industrialrevival.api.recipes.methods.MeltMethod;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -432,6 +433,6 @@ public class MeltedTank implements Cloneable, Colorful {
             increment += higher;
         }
         setDirty(false);
-        return new DisplayGroup(IRDock.getPlugin()).addDirectly(displays);
+        return new DisplayGroup(IndustrialRevival.getInstance()).addDirectly(displays);
     }
 }

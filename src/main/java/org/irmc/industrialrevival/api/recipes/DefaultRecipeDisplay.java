@@ -12,7 +12,8 @@ import org.irmc.industrialrevival.api.items.attributes.RecipeDisplayItem;
 import org.irmc.industrialrevival.api.menu.SimpleMenu;
 import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.api.player.PlayerProfile;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.CleanedItemGetter;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.GuideUtil;
@@ -47,7 +48,7 @@ public class DefaultRecipeDisplay implements RecipeType.RecipeDisplay {
                     recipeSlots[4],
                     new CustomItemStack(
                             Material.BARRIER,
-                            IRDock.getPlugin()
+                            IndustrialRevival.getInstance()
                                     .getLanguageManager()
                                     .getMsgComponent(p, "misc.recipe_not_found")).getBukkit());
 
@@ -184,7 +185,7 @@ public class DefaultRecipeDisplay implements RecipeType.RecipeDisplay {
 
     private void showUsage(Player p, NamespacedKey itemId) {
         SimpleMenu sm = new SimpleMenu(
-                IRDock.getPlugin().getLanguageManager().getMsgComponent(p, Constants.Keys.GUIDE_TITLE_KEY));
+                IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(p, Constants.Keys.GUIDE_TITLE_KEY));
         Collection<List<RecipeContent>> recipeContents =
                 RecipeContents.getRecipeContents().values();
         List<RecipeContent> allAvailableRecipeContents = new ArrayList<>();
@@ -211,7 +212,7 @@ public class DefaultRecipeDisplay implements RecipeType.RecipeDisplay {
                     recipeSlots[4],
                     new CustomItemStack(
                             Material.BARRIER,
-                            IRDock.getPlugin()
+                            IndustrialRevival.getInstance()
                                     .getLanguageManager()
                                     .getMsgComponent(p, "misc.recipe_no_usage")).getBukkit());
 
@@ -300,7 +301,7 @@ public class DefaultRecipeDisplay implements RecipeType.RecipeDisplay {
             String url = Constants.Misc.WIKI_URL + item.getWikiText();
             ClickEvent clickEvent = ClickEvent.openUrl(url);
             Component text =
-                    IRDock.getPlugin().getLanguageManager().getMsgComponent(p, "misc.wiki_page");
+                    IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(p, "misc.wiki_page");
             text = text.clickEvent(clickEvent);
 
             Component finalText = text;
@@ -317,7 +318,7 @@ public class DefaultRecipeDisplay implements RecipeType.RecipeDisplay {
         ItemStack resultItem = rc.result().getItemStack().clone();
         ItemUtils.addLore(
                 resultItem,
-                IRDock.getPlugin().getLanguageManager().getMsgComponent(p, "misc.recipe_show_usage"),
+                IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(p, "misc.recipe_show_usage"),
                 true);
 
         sm.setItem(25, resultItem, (player, _, _, _, clickType) -> {

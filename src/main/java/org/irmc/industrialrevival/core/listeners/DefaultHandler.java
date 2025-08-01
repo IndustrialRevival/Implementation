@@ -22,7 +22,8 @@ import org.irmc.industrialrevival.api.events.vanilla.PistonExtendIRBlockEvent;
 import org.irmc.industrialrevival.api.events.vanilla.PistonRetractIRBlockEvent;
 import org.irmc.industrialrevival.api.events.vanilla.PlayerBucketEmptyToIRBlockEvent;
 import org.irmc.industrialrevival.api.events.vanilla.PlayerRightClickEvent;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.Debug;
 
@@ -76,8 +77,8 @@ public class DefaultHandler implements Listener {
             return;
         }
 
-        //IRDock.getPlugin().getItemTextureService().blockBreaking(event);
-        IRDock.getPlugin().getDataManager().breakBlock(event.getOriginalEvent().getBlock().getLocation());
+        //IndustrialRevival.getInstance().getItemTextureService().blockBreaking(event);
+        IndustrialRevival.getInstance().getDataManager().breakBlock(event.getOriginalEvent().getBlock().getLocation());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -100,8 +101,8 @@ public class DefaultHandler implements Listener {
         NamespacedKey id = event.getIritem().getId();
 
         Debug.log("onIRBlockPlace - 2");
-        //IRDock.getPlugin().getItemTextureService().blockPlacing(event);
-        IRDock.getPlugin().getDataManager().placeBlock(location, id);
+        //IndustrialRevival.getInstance().getItemTextureService().blockPlacing(event);
+        IndustrialRevival.getInstance().getDataManager().placeBlock(location, id);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

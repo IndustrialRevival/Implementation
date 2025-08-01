@@ -13,7 +13,8 @@ import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.core.guide.GuideMode;
 import org.irmc.industrialrevival.api.player.PlayerProfile;
 import org.irmc.industrialrevival.core.guide.GuideSettings;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.GuideUtil;
 import org.irmc.industrialrevival.utils.MenuUtil;
@@ -51,7 +52,7 @@ public class NormalGroupMenu extends PageableMenu<IndustrialRevivalItem> {
 
             var n = NamespacedKey.fromString(DataUtil.getPDC(i.getItemMeta(), PageableMenu.ITEM_KEY, PersistentDataType.STRING));
             if (n != null) {
-                var item = IRDock.getPlugin().getRegistry().getItems().get(n);
+                var item = IndustrialRevival.getInstance().getRegistry().getItems().get(n);
                 if (item != null) {
                     if (guideMode == GuideMode.CHEAT && p.isOp()) {
                         tryGiveItem(p, item, i, t.isRightClick() ? i.getMaxStackSize() : 1);

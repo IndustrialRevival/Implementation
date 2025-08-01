@@ -8,7 +8,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.menu.MachineMenu;
 import org.irmc.industrialrevival.api.data.sql.BlockRecord;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -66,7 +67,7 @@ public class IRBlockData {
                 record.getMachineId(),
                 loc,
                 record.getData(),
-                new MachineMenu(loc, IRDock.getRegistry().getMenuPresets().get(record.getMachineId()))
+                new MachineMenu(loc, IndustrialRevival.getInstance().getRegistry().getMenuPresets().get(record.getMachineId()))
         );
     }
 

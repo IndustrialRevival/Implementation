@@ -5,7 +5,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.NamespacedKey;
 import org.irmc.industrialrevival.api.elements.ElementType;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.ColorUtil;
 import org.irmc.industrialrevival.utils.KeyUtil;
 import org.jetbrains.annotations.NotNull;
@@ -31,8 +32,8 @@ public class OreMeltedType extends MeltedType {
     protected OreMeltedType(@NotNull ElementType elementType) {
         this.elementType = elementType;
         this.identifier = KeyUtil.customKey("ore_melted_type_" + elementType.name().toLowerCase());
-        this.name = IRDock.getPlugin().getLanguageManager().getMsgComponent(null, "ore_melted_type_name." + elementType.name().toLowerCase());
-        this.meltedName = IRDock.getPlugin().getLanguageManager().getMsgComponent(null, "ore_melted_type_melted_name." + elementType.name().toLowerCase());
+        this.name = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "ore_melted_type_name." + elementType.name().toLowerCase());
+        this.meltedName = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "ore_melted_type_melted_name." + elementType.name().toLowerCase());
     }
 
     /**

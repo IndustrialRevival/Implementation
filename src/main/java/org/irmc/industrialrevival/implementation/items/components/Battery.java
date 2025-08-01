@@ -11,8 +11,9 @@ import org.irmc.industrialrevival.api.items.attributes.NotPlaceable;
 import org.irmc.industrialrevival.api.items.attributes.Rechargeable;
 import org.irmc.industrialrevival.api.items.collection.ItemDictionary;
 import org.irmc.industrialrevival.api.items.groups.ItemGroup;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.api.language.MessageReplacement;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class Battery extends IndustrialRevivalItem implements NotPlaceable, Rech
             newEnergy = getEnergyCapacity();
         }
 
-        Component stored = IRDock.getLanguageManager().getMsgComponent(null, "energy.stored",
+        Component stored = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "energy.stored",
                 MessageReplacement.replace("%energy%", newEnergy + "mAh"),
                 MessageReplacement.replace("%capacity%", getEnergyCapacity() + "mAh"));
 
@@ -93,7 +94,7 @@ public class Battery extends IndustrialRevivalItem implements NotPlaceable, Rech
             newEnergy = getEnergyCapacity();
         }
 
-        Component stored = IRDock.getLanguageManager().getMsgComponent(null, "energy.stored",
+        Component stored = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "energy.stored",
                 MessageReplacement.replace("%energy%", newEnergy + "mAh"),
                 MessageReplacement.replace("%capacity%", getEnergyCapacity() + "mAh"));
 

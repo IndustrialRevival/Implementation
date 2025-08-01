@@ -23,7 +23,7 @@ import org.irmc.industrialrevival.core.services.IListenerManager;
 import org.irmc.industrialrevival.core.services.IMinecraftRecipeService;
 import org.irmc.industrialrevival.core.services.IRunningProfilerService;
 import org.irmc.industrialrevival.core.services.ISQLDataManager;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.implementation.services.GitHubService;
 import org.irmc.industrialrevival.implementation.services.IRDataManager;
 import org.irmc.industrialrevival.implementation.services.SQLDataManager;
@@ -52,7 +52,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public final class IndustrialRevival extends JavaPlugin implements IIndustrialRevivalPlugin {
-    private static IndustrialRevival instance;
+    private @Getter static IndustrialRevival instance;
 
     private @Getter LanguageManager languageManager;
     private @Getter LanguageTextService languageTextService;
@@ -72,12 +72,12 @@ public final class IndustrialRevival extends JavaPlugin implements IIndustrialRe
 
     @Override
     public void runSync(@NotNull Runnable runnable) {
-        IRDock.getFoliaLibImpl().getScheduler().runNextTick(_ -> runnable.run());
+        IndustrialRevival.getInstance().getFoliaLibImpl().getScheduler().runNextTick(_ -> runnable.run());
     }
     
     @Override
     public void runSync(@NotNull Consumer<WrappedTask> consumer) {
-        IRDock.getFoliaLibImpl().getScheduler().runNextTick(consumer);
+        IndustrialRevival.getInstance().getFoliaLibImpl().getScheduler().runNextTick(consumer);
     }
 
     @Override
@@ -97,12 +97,12 @@ public final class IndustrialRevival extends JavaPlugin implements IIndustrialRe
 
     @Override
     public void runAsync(@NotNull Runnable runnable) {
-        IRDock.getFoliaLibImpl().getScheduler().runAsync(_ -> runnable.run());
+        IndustrialRevival.getInstance().getFoliaLibImpl().getScheduler().runAsync(_ -> runnable.run());
     }
     
     @Override
     public void runAsync(@NotNull Consumer<WrappedTask> consumer) {
-        IRDock.getFoliaLibImpl().getScheduler().runAsync(consumer);
+        IndustrialRevival.getInstance().getFoliaLibImpl().getScheduler().runAsync(consumer);
     }
 
     public @NotNull List<IndustrialRevivalAddon> getAddons() {
@@ -154,6 +154,9 @@ public final class IndustrialRevival extends JavaPlugin implements IIndustrialRe
         getLogger().info("Setting up listeners...");
         listenerManager = new ListenerManager();
 
+        getLogger().info("Setting up services...");
+        setupServices();
+
         getLogger().info("Setting up tasks...");
         setupTasks();
 
@@ -163,9 +166,6 @@ public final class IndustrialRevival extends JavaPlugin implements IIndustrialRe
         if (overworld != null) {
             WorldUtil.addPopulatorTo(overworld, elementOreGenerator);
         }
-
-        getLogger().info("Setting up services...");
-        setupServices();
 
         getComponentLogger().info(LanguageManager.parseToComponent("<green>Industrial Revival has been enabled!"));
     }
@@ -205,7 +205,7 @@ public final class IndustrialRevival extends JavaPlugin implements IIndustrialRe
     private void setupTasks() {
         int checkInterval = getConfig().getInt("options.armor-check-interval", 1);
         foliaLibImpl.getScheduler().runTimerAsync(new ArmorCheckTask(checkInterval), checkInterval, checkInterval);
-        foliaLibImpl.getScheduler().runTimerAsync(IRDock.getRunningProfilerService().getTask(), checkInterval, checkInterval);
+        foliaLibImpl.getScheduler().runTimerAsync(IndustrialRevival.getInstance().getRunningProfilerService().getTask(), checkInterval, checkInterval);
         int deEnderDragonCheckInterval = getConfig().getInt("options.anti-ender-dragon-check.interval", 20);
         int deEnderDragonCheckRadius = getConfig().getInt("options.anti-ender-dragon-check.radius", 20);
         foliaLibImpl.getScheduler().runTimerAsync(new AnitEnderDragonTask(deEnderDragonCheckRadius), deEnderDragonCheckInterval, deEnderDragonCheckInterval);

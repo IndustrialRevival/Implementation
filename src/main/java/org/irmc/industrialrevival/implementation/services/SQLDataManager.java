@@ -15,7 +15,8 @@ import org.irmc.industrialrevival.api.data.sql.BlockRecord;
 import org.irmc.industrialrevival.api.data.sql.PlayerResearchRecord;
 import org.irmc.industrialrevival.core.services.ISQLDataManager;
 import org.irmc.industrialrevival.dock.IIndustrialRevivalPlugin;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Constants;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +30,7 @@ import java.util.logging.Logger;
 //todo: move to implementation
 public class SQLDataManager implements ISQLDataManager {
     private final DatabaseConnection connection;
-    private final Logger LOGGER = IRDock.getPlugin().getLogger();
+    private final Logger LOGGER = IndustrialRevival.getInstance().getLogger();
 
     public SQLDataManager(IIndustrialRevivalPlugin plugin) {
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("storage");
@@ -76,7 +77,7 @@ public class SQLDataManager implements ISQLDataManager {
                     =========================
                     """, e);
 
-            Bukkit.getPluginManager().disablePlugin(IRDock.getPlugin());
+            Bukkit.getPluginManager().disablePlugin(IndustrialRevival.getInstance());
         }
     }
 

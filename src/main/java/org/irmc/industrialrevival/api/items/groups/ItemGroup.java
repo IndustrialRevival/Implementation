@@ -8,7 +8,8 @@ import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.menu.Displayable;
 import org.irmc.industrialrevival.api.menu.gui.NormalGroupMenu;
 import org.irmc.industrialrevival.api.menu.gui.PageableMenu;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -126,7 +127,7 @@ public abstract class ItemGroup implements Displayable<ItemGroup> {
             this.items.add(item);
         } else {
             // not allowed item
-            IRDock.getPlugin().getLogger().warning(MessageFormat.format(
+            IndustrialRevival.getInstance().getLogger().warning(MessageFormat.format(
                     "Item {0} (From addon {1}) is not allowed to be added to group {2} (From addon {3})",
                     item.getItemName(),
                     item.getAddon().getPlugin().getName(),
@@ -147,7 +148,7 @@ public abstract class ItemGroup implements Displayable<ItemGroup> {
 
         locked = true;
 
-        IRDock.getPlugin().getRegistry().registerItemGroup(this);
+        IndustrialRevival.getInstance().getRegistry().registerItemGroup(this);
     }
 
     /**
@@ -156,7 +157,7 @@ public abstract class ItemGroup implements Displayable<ItemGroup> {
      * @return true if the item group is registered, false otherwise
      */
     public final boolean isRegistered() {
-        return IRDock.getPlugin().getRegistry().getItemGroups().containsKey(key);
+        return IndustrialRevival.getInstance().getRegistry().getItemGroups().containsKey(key);
     }
 
     /**

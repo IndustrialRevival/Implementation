@@ -152,12 +152,12 @@ public final class IRRegistry implements IIRRegistry {
 
     @Override
     public @NotNull Map<NamespacedKey, MachineMenuPreset> getMenuPresets() {
-        return Collections.unmodifiableMap(machineMenuPresets);
+        return machineMenuPresets;
     }
 
     @Override
     public @NotNull Collection<MachineMenuPreset> getAllMenuPresets() {
-        return Collections.unmodifiableCollection(machineMenuPresets.values());
+        return machineMenuPresets.values();
     }
 
     @Override
@@ -472,7 +472,7 @@ public final class IRRegistry implements IIRRegistry {
 
     @Override
     public @NotNull Map<String, ChemicalCompound> getChemicalCompounds() {
-        return Collections.unmodifiableMap(chemicals);
+        return chemicals;
     }
 
     @Override

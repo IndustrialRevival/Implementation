@@ -11,7 +11,8 @@ import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
 import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.api.player.PlayerProfile;
 import org.irmc.industrialrevival.core.guide.GuideImplementation;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.DataUtil;
 import org.irmc.industrialrevival.utils.GuideUtil;
 import org.irmc.industrialrevival.utils.MenuUtil;
@@ -42,7 +43,7 @@ public class MainMenu extends PageableMenu<ItemGroup> {
         ClickHandler clickHandler = (p, i, s, m, t) -> {
             var n = NamespacedKey.fromString(DataUtil.getPDC(i.getItemMeta(), PageableMenu.GROUP_KEY, PersistentDataType.STRING));
             if (n != null) {
-                var group = IRDock.getPlugin().getRegistry().getItemGroups().get(n);
+                var group = IndustrialRevival.getInstance().getRegistry().getItemGroups().get(n);
                 if (group != null) {
                     group.getMenuGenerator().apply(p).open(p);
                 }
@@ -61,7 +62,7 @@ public class MainMenu extends PageableMenu<ItemGroup> {
 
     public static @NotNull List<ItemGroup> getDisplayableItemGroups(@NotNull Player player) {
         List<ItemGroup> itemGroups = new ArrayList<>();
-        for (var i : IRDock.getRegistry().getItemGroups().values()) {
+        for (var i : IndustrialRevival.getInstance().getRegistry().getItemGroups().values()) {
             if (!i.isOnlyVisibleByAdmins() || player.isOp()) {
                 itemGroups.add(i);
             }

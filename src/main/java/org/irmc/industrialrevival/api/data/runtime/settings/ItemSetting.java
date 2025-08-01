@@ -4,7 +4,8 @@ import lombok.Data;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,7 +23,7 @@ public abstract sealed class ItemSetting<T> implements Keyed permits ComparableI
         this.item = item;
         this.key = key;
         this.defaultValue = defaultValue;
-        this.currentValue = IRDock.getItemSettings().getItemSettings(item, this);
+        this.currentValue = IndustrialRevival.getInstance().getItemSettings().getItemSettings(item, this);
         this.namespacedKey = new NamespacedKey(item.getAddon(), key);
     }
 

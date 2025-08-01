@@ -8,7 +8,8 @@ import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.api.menu.MatrixMenuDrawer;
 import org.irmc.industrialrevival.api.menu.handlers.ClickHandler;
 import org.irmc.industrialrevival.api.player.PlayerProfile;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.GuideUtil;
 import org.irmc.industrialrevival.utils.MenuUtil;
 import org.irmc.industrialrevival.utils.chat.ChatInput;
@@ -41,7 +42,7 @@ public class SearchMenu extends PageableMenu<IndustrialRevivalItem> {
     public static void openSearch(@NotNull Player player, @NotNull Consumer<SearchMenu> call) {
         player.closeInventory();
         player.sendMessage(Component.text("搜索: ", TextColor.color(0xb0f05f)));
-        ChatInput.waitForPlayer(IRDock.getPlugin(), player, s -> {
+        ChatInput.waitForPlayer(IndustrialRevival.getInstance(), player, s -> {
             call.accept(new SearchMenu(getTitle(s), s, player, PlayerProfile.getProfile(player), 1));
         });
     }
@@ -53,7 +54,7 @@ public class SearchMenu extends PageableMenu<IndustrialRevivalItem> {
     public static @NotNull List<IndustrialRevivalItem> searchItems(Player player, @NotNull String searchTerm) {
         var c = Component.text(searchTerm);
         List<IndustrialRevivalItem> items = new ArrayList<>();
-        for (var item : IRDock.getPlugin().getRegistry().getItems().values()) {
+        for (var item : IndustrialRevival.getInstance().getRegistry().getItems().values()) {
             if (item.isDisabled()) {
                 continue;
             }

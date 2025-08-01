@@ -14,7 +14,7 @@ import org.irmc.industrialrevival.api.machines.BasicMachine;
 import org.irmc.industrialrevival.api.machines.recipes.MachineRecipe;
 import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.api.recipes.methods.CraftMethod;
-import org.irmc.industrialrevival.dock.IRDock;
+
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.implementation.groups.IRItemGroups;
 import org.irmc.industrialrevival.implementation.items.chemistry.ElectrolyticMachine;
@@ -87,7 +87,7 @@ import org.jetbrains.annotations.NotNull;
  * @author balugaq
  */
 public class IndustrialRevivalItemSetup {
-    public static final IndustrialRevivalAddon INSTANCE = IRDock.getPlugin();
+    public static final IndustrialRevivalAddon INSTANCE = IndustrialRevival.getInstance();
     public static final ItemStack[] EMPTY_RECIPE = new ItemStack[]{};
 
     public static final Empty EMPTY = new Empty()

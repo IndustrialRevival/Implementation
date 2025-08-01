@@ -16,7 +16,8 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Debug;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -190,7 +191,7 @@ public class TextModelBuilder extends AbstractModelBuilder implements Cloneable 
      */
     public @NotNull TextDisplay buildAt(@NotNull Location location) {
         try {
-            return Bukkit.getScheduler().callSyncMethod(IRDock.getPlugin(), () ->
+            return Bukkit.getScheduler().callSyncMethod(IndustrialRevival.getInstance(), () ->
                     location.getWorld().spawn(location, TextDisplay.class, display -> {
                         //<editor-fold> desc="args"
                         ifPresent(this.text, () -> display.text(this.text));

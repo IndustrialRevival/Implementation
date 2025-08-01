@@ -2,7 +2,8 @@ package org.irmc.industrialrevival.api.elements.registry;
 
 import org.irmc.industrialrevival.api.elements.compounds.ChemicalFormula;
 import org.irmc.industrialrevival.api.elements.reaction.ReactCondition;
-import org.irmc.industrialrevival.dock.IRDock;
+
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -12,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public class ChemicalFormulas {
     @Nullable
     public static ChemicalFormula getById(int id) {
-        for (ChemicalFormula formula : IRDock.getRegistry().getChemicalFormulas().values()) {
+        for (ChemicalFormula formula : IndustrialRevival.getInstance().getRegistry().getChemicalFormulas().values()) {
             if (formula.getId() == id) {
                 return formula;
             }

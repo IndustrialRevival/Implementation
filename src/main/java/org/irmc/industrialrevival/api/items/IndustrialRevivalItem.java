@@ -35,7 +35,7 @@ import org.irmc.industrialrevival.api.recipes.RecipeType;
 import org.irmc.industrialrevival.api.recipes.methods.CraftMethod;
 import org.irmc.industrialrevival.api.recipes.methods.ProduceMethod;
 import org.irmc.industrialrevival.core.translation.TranslateContext;
-import org.irmc.industrialrevival.dock.IRDock;
+import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.ItemUtils;
 import org.irmc.industrialrevival.api.language.LanguageManager;
@@ -138,7 +138,7 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
             return getById(NamespacedKey.fromString(id));
         }
 
-        for (IndustrialRevivalItem item : IRDock.getPlugin().getRegistry().getItems().values()) {
+        for (IndustrialRevivalItem item : IndustrialRevival.getInstance().getRegistry().getItems().values()) {
             if (item.getId().getKey().equals(id)) {
                 return item;
             }
@@ -154,8 +154,10 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
      * @return the item with the given {@link NamespacedKey}, or null if not found
      */
     @Nullable
-    public static IndustrialRevivalItem getById(@NotNull NamespacedKey id) {
-        return IRDock.getPlugin().getRegistry().getItems().get(id);
+    public static IndustrialRevivalItem getById(@Nullable NamespacedKey id) {
+        if (id != null)
+        return IndustrialRevival.getInstance().getRegistry().getItems().get(id);
+        return null;
     }
 
     /**
@@ -447,8 +449,8 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
         }
 
         if (saveToConfig) {
-            IRDock.getPlugin().getItemSettings().setEnable(this, !disabled);
-            IRDock.getPlugin().getItemSettings().saveSettings();
+            IndustrialRevival.getInstance().getItemSettings().setEnable(this, !disabled);
+            IndustrialRevival.getInstance().getItemSettings().saveSettings();
         }
         return this;
     }
@@ -584,7 +586,7 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
         Preconditions.checkArgument(addon != null, "Losing addon reference! Please set it before registering the item.");
         checkRegistered();
 
-        if (!IRDock.getPlugin().isEnabled()) {
+        if (!IndustrialRevival.getInstance().isEnabled()) {
             throw new UnsupportedOperationException("Cannot register item before IndustrialRevival is enabled");
         }
 
@@ -625,7 +627,7 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
             return null;
         }
 
-        IRDock.getPlugin().getRegistry().registerItem(this);
+        IndustrialRevival.getInstance().getRegistry().registerItem(this);
         this.state = this.state == ItemState.UNREGISTERED ? ItemState.ENABLED : this.state;
 
         return this;
@@ -705,14 +707,14 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
     @OverridingMethodsMustInvokeSuper
     protected void postRegister() {
         if (this instanceof MultiBlock mb) {
-            IRDock.getPlugin().getRegistry().registerMultiBlock(mb);
+            IndustrialRevival.getInstance().getRegistry().registerMultiBlock(mb);
         }
         if (this instanceof MobDropItem mdi) {
-            IRDock.getPlugin().getRegistry().registerMobDrop((IndustrialRevivalItem & MobDropItem) mdi);
+            IndustrialRevival.getInstance().getRegistry().registerMobDrop((IndustrialRevivalItem & MobDropItem) mdi);
         }
 
         if (this instanceof BlockDropItem bdi) {
-            IRDock.getPlugin().getRegistry().registerBlockDrop((IndustrialRevivalItem & BlockDropItem) bdi);
+            IndustrialRevival.getInstance().getRegistry().registerBlockDrop((IndustrialRevivalItem & BlockDropItem) bdi);
         }
 
         if (this instanceof VanillaSmeltingItem vsi) {
@@ -782,7 +784,7 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
      */
     @NotNull
     protected ConfigurationSection getItemSetting() {
-        return IRDock.getPlugin().getItemSettings().getCfg(this);
+        return IndustrialRevival.getInstance().getItemSettings().getCfg(this);
     }
 
     public IndustrialRevivalItem setAddon(@NotNull IndustrialRevivalAddon addon) {
@@ -869,7 +871,7 @@ public class IndustrialRevivalItem implements Keyed, Displayable<IndustrialReviv
     }
 
     public final boolean isRegistered() {
-        return IRDock.getPlugin().getRegistry().getItems().containsKey(getId());
+        return IndustrialRevival.getInstance().getRegistry().getItems().containsKey(getId());
     }
 
     @Override
