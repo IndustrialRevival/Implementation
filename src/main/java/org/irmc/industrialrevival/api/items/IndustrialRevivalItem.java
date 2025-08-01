@@ -38,7 +38,6 @@ import org.irmc.industrialrevival.core.translation.TranslateContext;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.ItemUtils;
-import org.irmc.industrialrevival.api.language.LanguageManager;
 import org.irmc.industrialrevival.api.pdc.PersistentDataAPI;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

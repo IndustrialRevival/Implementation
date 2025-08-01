@@ -75,7 +75,7 @@ public class Battery extends IndustrialRevivalItem implements NotPlaceable, Rech
             newEnergy = getEnergyCapacity();
         }
 
-        Component stored = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "energy.stored",
+        Component stored = IndustrialRevival.getInstance().getLanguageManager().getComponent(null, "energy.stored",
                 MessageReplacement.replace("%energy%", newEnergy + "mAh"),
                 MessageReplacement.replace("%capacity%", getEnergyCapacity() + "mAh"));
 
@@ -94,7 +94,7 @@ public class Battery extends IndustrialRevivalItem implements NotPlaceable, Rech
             newEnergy = getEnergyCapacity();
         }
 
-        Component stored = IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(null, "energy.stored",
+        Component stored = IndustrialRevival.getInstance().getLanguageManager().getComponent(null, "energy.stored",
                 MessageReplacement.replace("%energy%", newEnergy + "mAh"),
                 MessageReplacement.replace("%capacity%", getEnergyCapacity() + "mAh"));
 

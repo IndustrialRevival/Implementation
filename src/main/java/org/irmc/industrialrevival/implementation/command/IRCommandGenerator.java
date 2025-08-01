@@ -108,7 +108,7 @@ public class IRCommandGenerator {
                                 sender.sendMessage(IndustrialRevival
                                         .getInstance()
                                         .getLanguageManager()
-                                        .getMsgComponent(sender, "command.give.target_not_found"));
+                                        .getComponent(sender, "command.give.target_not_found"));
                                 return;
                             }
 
@@ -116,7 +116,7 @@ public class IRCommandGenerator {
                                 sender.sendMessage(IndustrialRevival
                                         .getInstance()
                                         .getLanguageManager()
-                                        .getMsgComponent(sender, "command.give.item_not_found"));
+                                        .getComponent(sender, "command.give.item_not_found"));
                                 return;
                             }
 
@@ -135,7 +135,7 @@ public class IRCommandGenerator {
                             target.sendMessage(IndustrialRevival
                                     .getInstance()
                                     .getLanguageManager()
-                                    .getMsgComponent(sender, "command.give.success", itemName, itemAmount));
+                                    .getComponent(sender, "command.give.success", itemName, itemAmount));
                         }))
                 .withSubcommand(new CommandAPICommand("giveSilently")
                         .withPermission(Constants.Permissions.COMMAND_GIVE)
@@ -165,7 +165,7 @@ public class IRCommandGenerator {
                                 sender.sendMessage(IndustrialRevival
                                         .getInstance()
                                         .getLanguageManager()
-                                        .getMsgComponent(sender, "command.give.target_not_found"));
+                                        .getComponent(sender, "command.give.target_not_found"));
                                 return;
                             }
 
@@ -173,7 +173,7 @@ public class IRCommandGenerator {
                                 sender.sendMessage(IndustrialRevival
                                         .getInstance()
                                         .getLanguageManager()
-                                        .getMsgComponent(sender, "command.give.item_not_found"));
+                                        .getComponent(sender, "command.give.item_not_found"));
                                 return;
                             }
 
@@ -190,7 +190,7 @@ public class IRCommandGenerator {
                             sender.sendMessage(IndustrialRevival
                                     .getInstance()
                                     .getLanguageManager()
-                                    .getMsgComponent(sender, "command.timings.waiting"));
+                                    .getComponent(sender, "command.timings.waiting"));
                         }))
                 .withSubcommand(new CommandAPICommand("chemistry")
                         .withPermission(Constants.Permissions.COMMAND_CHEMISTRY)
@@ -216,7 +216,7 @@ public class IRCommandGenerator {
                                 player.sendMessage(IndustrialRevival
                                         .getInstance()
                                         .getLanguageManager()
-                                        .getMsgComponent(player, "command.chemistry.no_target_block"));
+                                        .getComponent(player, "command.chemistry.no_target_block"));
                                 return;
                             }
 
@@ -226,7 +226,7 @@ public class IRCommandGenerator {
                                 player.sendMessage(IndustrialRevival
                                         .getInstance()
                                         .getLanguageManager()
-                                        .getMsgComponent(player, "command.chemistry.no_item_block"));
+                                        .getComponent(player, "command.chemistry.no_item_block"));
                                 return;
                             }
 
@@ -244,7 +244,7 @@ public class IRCommandGenerator {
                                     player.sendMessage(IndustrialRevival
                                             .getInstance()
                                             .getLanguageManager()
-                                            .getMsgComponent(player, "command.chemistry.compound_not_found"));
+                                            .getComponent(player, "command.chemistry.compound_not_found"));
                                     return;
                                 }
 
@@ -263,21 +263,21 @@ public class IRCommandGenerator {
     private static void sendHelpMessage(CommandSender sender) {
         List<CommandAPICommand> subcommands = instance.getSubcommands();
         Component msg =
-                IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(sender, "command.help.header");
+                IndustrialRevival.getInstance().getLanguageManager().getComponent(sender, "command.help.header");
         for (CommandAPICommand subcommand : subcommands) {
             String commandName = subcommand.getName();
             msg = msg.append(Component.newline());
             msg = msg.append(IndustrialRevival
                     .getInstance()
                     .getLanguageManager()
-                    .getMsgComponent(sender, "command.help." + commandName));
+                    .getComponent(sender, "command.help." + commandName));
         }
         sender.sendMessage(msg);
     }
 
     private static void sendInfoMessage(CommandSender sender) {
         Component msg =
-                IndustrialRevival.getInstance().getLanguageManager().getMsgComponent(sender, "command.info.header");
+                IndustrialRevival.getInstance().getLanguageManager().getComponent(sender, "command.info.header");
         msg = msg.append(Component.newline());
 
         MessageReplacement ver = MessageReplacement.replace(
@@ -286,7 +286,7 @@ public class IRCommandGenerator {
         msg = msg.append(IndustrialRevival
                 .getInstance()
                 .getLanguageManager()
-                .getMsgComponent(sender, "command.info.version", ver));
+                .getComponent(sender, "command.info.version", ver));
 
         msg = msg.append(Component.newline());
 
@@ -295,7 +295,7 @@ public class IRCommandGenerator {
         msg = msg.append(IndustrialRevival
                 .getInstance()
                 .getLanguageManager()
-                .getMsgComponent(sender, "command.info.server_version", serverVer));
+                .getComponent(sender, "command.info.server_version", serverVer));
 
         for (Plugin addon : IndustrialRevival.getInstance().getAddons()) {
             MessageReplacement name = MessageReplacement.replace("%addon_name%", addon.getName());
@@ -305,7 +305,7 @@ public class IRCommandGenerator {
             msg = msg.append(IndustrialRevival
                     .getInstance()
                     .getLanguageManager()
-                    .getMsgComponent(sender, "command.info.addon_item", name, version));
+                    .getComponent(sender, "command.info.addon_item", name, version));
         }
 
         sender.sendMessage(msg);

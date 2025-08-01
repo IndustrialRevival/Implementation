@@ -13,12 +13,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.irmc.industrialrevival.api.IndustrialRevivalAddon;
 import org.irmc.industrialrevival.core.listeners.*;
+import org.irmc.industrialrevival.core.managers.LanguageManager;
 import org.irmc.industrialrevival.core.managers.ListenerManager;
 import org.irmc.industrialrevival.core.services.IGitHubService;
 import org.irmc.industrialrevival.core.services.IIRDataManager;
 import org.irmc.industrialrevival.core.services.IIRRegistry;
 import org.irmc.industrialrevival.core.services.IItemDataService;
 import org.irmc.industrialrevival.core.services.IItemSettings;
+import org.irmc.industrialrevival.core.services.ILanguageManager;
 import org.irmc.industrialrevival.core.services.IListenerManager;
 import org.irmc.industrialrevival.core.services.IMinecraftRecipeService;
 import org.irmc.industrialrevival.core.services.IRunningProfilerService;
@@ -44,7 +46,6 @@ import org.irmc.industrialrevival.utils.Constants;
 import org.irmc.industrialrevival.utils.WorldUtil;
 import org.irmc.industrialrevival.api.enums.Language;
 import org.irmc.industrialrevival.utils.ConfigFileUtil;
-import org.irmc.industrialrevival.api.language.LanguageManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -54,7 +55,7 @@ import java.util.function.Consumer;
 public final class IndustrialRevival extends JavaPlugin implements IIndustrialRevivalPlugin {
     private @Getter static IndustrialRevival instance;
 
-    private @Getter LanguageManager languageManager;
+    private @Getter ILanguageManager languageManager;
     private @Getter LanguageTextService languageTextService;
 
     private @Getter IIRRegistry registry;
