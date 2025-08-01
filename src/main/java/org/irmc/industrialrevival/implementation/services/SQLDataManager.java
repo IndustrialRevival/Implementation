@@ -68,6 +68,7 @@ public class SQLDataManager implements ISQLDataManager {
     public void init() {
         try {
             connection.createTableByClass(BlockRecord.class);
+            connection.createTableByClass(PlayerResearchRecord.class);
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, """
                     ========================= FATAL ERROR
