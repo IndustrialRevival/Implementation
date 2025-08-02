@@ -12,7 +12,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.irmc.industrialrevival.api.items.IndustrialRevivalItem;
 import org.irmc.industrialrevival.core.translation.TranslateContext;
 
-import org.irmc.industrialrevival.api.language.LanguageManager;
 import org.irmc.industrialrevival.implementation.IndustrialRevival;
 import org.jetbrains.annotations.NotNull;
 
